@@ -1,1560 +1,1923 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0c0f">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Winter Arc">
-
-<title>Winter Arc ❄️</title>
-
-<style>
-:root {
-  --bg:#0b0c0f;
-  --card:#15171c;
-  --card2:#1c1f26;
-  --text:#f4f5f7;
-  --muted:#969ba6;
-  --accent:#d7ff55;
-  --line:#292c34;
-  --danger:#ff6969;
-}
-
-* { box-sizing:border-box; }
-
-html { scroll-behavior:smooth; }
-
-body {
-  margin:0;
-  background:linear-gradient(180deg,#0b0c0f,#111318);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-
-button,input {
-  font:inherit;
-}
-
-button {
-  cursor:pointer;
-}
-
-.app {
-  max-width:720px;
-  margin:auto;
-  padding:18px 16px 105px;
-}
-
-/* HEADER */
-
-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.eyebrow {
-  color:var(--accent);
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-}
-
-h1 {
-  margin:5px 0 0;
-  font-size:32px;
-  letter-spacing:-.05em;
-}
-
-h2 {
-  font-size:21px;
-  margin:0 0 12px;
-}
-
-h3 {
-  margin:0 0 5px;
-  font-size:16px;
-}
-
-p {
-  color:var(--muted);
-  line-height:1.5;
-}
-
-/* BUTTONS */
-
-.btn {
-  border:0;
-  border-radius:13px;
-  padding:11px 14px;
-  font-weight:800;
-  background:var(--accent);
-  color:#111;
-}
-
-.btn.secondary {
-  background:var(--card2);
-  color:var(--text);
-  border:1px solid var(--line);
-}
-
-/* HERO */
-
-.hero {
-  background:
-    radial-gradient(circle at 100% 0%,rgba(215,255,85,.14),transparent 35%),
-    linear-gradient(135deg,#1d221a,#15171c);
-  border:1px solid #30372a;
-  border-radius:25px;
-  padding:20px;
-}
-
-.hero-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-}
-
-.week-label {
-  color:var(--muted);
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:.12em;
-}
-
-.week-number {
-  font-size:50px;
-  font-weight:900;
-  letter-spacing:-.07em;
-}
-
-.phase {
-  background:var(--accent);
-  color:#111;
-  padding:6px 9px;
-  border-radius:999px;
-  font-size:10px;
-  font-weight:900;
-}
-
-.progress {
-  height:9px;
-  background:#292d29;
-  border-radius:99px;
-  overflow:hidden;
-  margin-top:15px;
-}
-
-.progress-bar {
-  height:100%;
-  width:0;
-  background:var(--accent);
-  transition:.3s;
-}
-
-/* STATS */
-
-.stats {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin:12px 0;
-}
-
-.stat {
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:15px;
-}
-
-.stat-number {
-  font-size:27px;
-  font-weight:900;
-}
-
-.stat-label {
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* CARDS */
-
-.section {
-  margin-top:25px;
-}
-
-.card {
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-  margin:10px 0;
-}
-
-.row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.muted {
-  color:var(--muted);
-}
-
-.quote {
-  font-size:20px;
-  font-weight:800;
-  line-height:1.35;
-}
-
-.notice {
-  background:#171d15;
-  border:1px solid #303a29;
-  color:#c8d0c1;
-  border-radius:16px;
-  padding:13px;
-  font-size:13px;
-  line-height:1.45;
-}
-
-/* TABS */
-
-.tabs {
-  position:fixed;
-  z-index:10;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:9px 12px calc(9px + env(safe-area-inset-bottom));
-  background:rgba(11,12,15,.93);
-  backdrop-filter:blur(18px);
-  border-top:1px solid var(--line);
-}
-
-.tabs-inner {
-  max-width:720px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-}
-
-.tab {
-  border:0;
-  background:none;
-  color:#777c86;
-  padding:7px 3px;
-  border-radius:12px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.tab span {
-  display:block;
-  font-size:19px;
-  margin-bottom:2px;
-}
-
-.tab.active {
-  color:var(--accent);
-  background:#1a1d21;
-}
-
-/* VIEWS */
-
-.view {
-  display:none;
-}
-
-.view.active {
-  display:block;
-}
-
-/* WORKOUT */
-
-.pills {
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  padding-bottom:5px;
-}
-
-.pill {
-  flex:0 0 auto;
-  border:1px solid var(--line);
-  background:var(--card);
-  color:var(--muted);
-  border-radius:999px;
-  padding:8px 12px;
-  font-size:12px;
-}
-
-.pill.active {
-  background:var(--accent);
-  color:#111;
-  border-color:var(--accent);
-  font-weight:800;
-}
-
-.exercise {
-  padding:14px 0;
-  border-bottom:1px solid var(--line);
-}
-
-.exercise:last-child {
-  border-bottom:0;
-}
-
-.exercise-top {
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.weight {
-  color:var(--accent);
-  font-weight:900;
-  white-space:nowrap;
-}
-
-.sets {
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.log {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
-  margin-top:9px;
-}
-
-.log input {
-  width:100%;
-  padding:9px;
-  border-radius:9px;
-  border:1px solid var(--line);
-  background:#0f1115;
-  color:white;
-}
-
-/* CHECKLIST */
-
-.check {
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:12px 0;
-  border-bottom:1px solid var(--line);
-}
-
-.check:last-child {
-  border:0;
-}
-
-.check input {
-  appearance:none;
-  width:22px;
-  height:22px;
-  border:2px solid #555b66;
-  border-radius:7px;
-}
-
-.check input:checked {
-  background:var(--accent);
-  border-color:var(--accent);
-}
-
-.check input:checked::after {
-  content:"✓";
-  color:#111;
-  display:block;
-  text-align:center;
-  font-weight:900;
-}
-
-/* RUN */
-
-.run-box {
-  background:#101216;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:15px;
-}
-
-.run-title {
-  font-weight:900;
-  font-size:17px;
-}
-
-.run-description {
-  color:var(--muted);
-  font-size:13px;
-  margin-top:5px;
-}
-
-/* TOAST */
-
-.toast {
-  position:fixed;
-  z-index:30;
-  bottom:90px;
-  left:50%;
-  transform:translateX(-50%) translateY(10px);
-  background:#f4f5f7;
-  color:#111;
-  border-radius:999px;
-  padding:10px 16px;
-  font-size:13px;
-  font-weight:800;
-  opacity:0;
-  transition:.25s;
-}
-
-.toast.show {
-  opacity:1;
-  transform:translateX(-50%);
-}
-
-/* SETTINGS */
-
-.modal {
-  position:fixed;
-  z-index:20;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:flex-end;
-}
-
-.modal.show {
-  display:flex;
-}
-
-.sheet {
-  width:100%;
-  max-width:720px;
-  margin:auto;
-  background:var(--card);
-  border-radius:25px 25px 0 0;
-  padding:20px;
-}
-
-.date {
-  width:100%;
-  background:#101216;
-  border:1px solid var(--line);
-  color:white;
-  border-radius:10px;
-  padding:10px;
-}
-
-@media(min-width:700px) {
-  .tabs {
-    width:690px;
-    left:50%;
-    right:auto;
-    transform:translateX(-50%);
-    border:1px solid var(--line);
-    border-radius:20px;
-    bottom:15px;
-  }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d0c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Winter Arc" />
+  <title>Winter Arc</title>
+  <link rel="manifest" href="manifest.json" />
+
+  <style>
+    :root {
+      --bg: #080a09;
+      --panel: #111412;
+      --panel2: #171b18;
+      --border: #252b27;
+      --text: #f2f5f2;
+      --muted: #929b95;
+      --lime: #c8ff3d;
+      --lime-dark: #93c800;
+      --red: #ff6969;
+      --orange: #ffb454;
+      --green: #70e08b;
+      --blue: #75baff;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 85% -10%, rgba(200,255,61,.09), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      min-height: 100vh;
+      padding-bottom: calc(90px + env(safe-area-inset-bottom));
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      width: min(760px, 100%);
+      margin: auto;
+      padding: 20px 16px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--lime);
+      color: #0b0d0c;
+      font-weight: 900;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 21px;
+      margin-bottom: 2px;
+      letter-spacing: -.4px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 5px;
+      letter-spacing: -.6px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 13px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+      animation: fade .18s ease;
+    }
+
+    @keyframes fade {
+      from { opacity: .2; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      padding: 22px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #171b17, #0f1210);
+      border-radius: 26px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: -70px;
+      top: -80px;
+      background: rgba(200,255,61,.08);
+      border-radius: 50%;
+    }
+
+    .eyebrow {
+      color: var(--lime);
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      font-size: 10px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      line-height: 1.02;
+      margin-bottom: 8px;
+      letter-spacing: -1.2px;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 500px;
+      margin-bottom: 18px;
+    }
+
+    .progress-track {
+      height: 9px;
+      background: #272d28;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--lime);
+      border-radius: inherit;
+      transition: width .35s ease;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 7px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .stat-card {
+      min-height: 100px;
+    }
+
+    .stat-number {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .accent {
+      color: var(--lime);
+    }
+
+    .green {
+      color: var(--green);
+    }
+
+    .orange {
+      color: var(--orange);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 2px 10px;
+    }
+
+    .section-heading h3 {
+      margin: 0;
+    }
+
+    .tiny {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .phase {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 9px;
+      border-radius: 99px;
+      background: rgba(200,255,61,.09);
+      color: var(--lime);
+      border: 1px solid rgba(200,255,61,.18);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .week-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .week-row {
+      display: grid;
+      grid-template-columns: 46px 1fr 42px;
+      align-items: center;
+      gap: 9px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      background: #0d100e;
+      border-radius: 13px;
+    }
+
+    .week-row.current {
+      border-color: rgba(200,255,61,.55);
+      background: rgba(200,255,61,.055);
+    }
+
+    .week-num {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .week-mini {
+      height: 6px;
+      background: #252b26;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .week-mini span {
+      display: block;
+      height: 100%;
+      background: var(--lime);
+      border-radius: inherit;
+    }
+
+    .week-percent {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .quote {
+      border-left: 3px solid var(--lime);
+      padding-left: 13px;
+      color: #dbe0dc;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+      padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+      background: rgba(10,12,10,.94);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid var(--border);
+    }
+
+    .tab {
+      border: 0;
+      background: transparent;
+      color: #717a73;
+      padding: 8px 3px;
+      font-size: 9px;
+      font-weight: 700;
+      border-radius: 12px;
+    }
+
+    .tab.active {
+      color: var(--lime);
+      background: rgba(200,255,61,.07);
+    }
+
+    .tab-icon {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+
+    .workout-pills {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .workout-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pill {
+      flex: 0 0 auto;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--muted);
+      border-radius: 99px;
+      padding: 9px 13px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .pill.active {
+      background: var(--lime);
+      color: #0a0c0a;
+      border-color: var(--lime);
+    }
+
+    .exercise {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exercise:last-child {
+      border-bottom: 0;
+    }
+
+    .exercise-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+
+    .exercise-name {
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .exercise-start {
+      color: var(--lime);
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .sets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .set-input {
+      width: 100%;
+      background: #0a0c0b;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 7px;
+      text-align: center;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .set-input:focus {
+      border-color: var(--lime);
+    }
+
+    .set-label {
+      display: block;
+      text-align: center;
+      color: var(--muted);
+      font-size: 8px;
+      margin-top: 3px;
+    }
+
+    .primary {
+      width: 100%;
+      border: 0;
+      background: var(--lime);
+      color: #090b09;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      margin-top: 14px;
+    }
+
+    .secondary {
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--text);
+      padding: 11px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .danger {
+      color: var(--red);
+    }
+
+    .timer {
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .timer-display {
+      font-size: 58px;
+      font-weight: 850;
+      letter-spacing: -2px;
+      margin: 6px 0 13px;
+    }
+
+    .timer-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .timer-preset {
+      border: 1px solid var(--border);
+      background: #0c0f0d;
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 11px;
+    }
+
+    .timer-preset.active {
+      color: var(--lime);
+      border-color: var(--lime);
+    }
+
+    .run-box {
+      background: linear-gradient(145deg, #131a15, #0e120f);
+      border: 1px solid rgba(112,224,139,.2);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .run-workout {
+      font-size: 25px;
+      font-weight: 850;
+      margin-bottom: 4px;
+    }
+
+    .run-detail {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .day-cell {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      background: #171b18;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      font-size: 9px;
+      color: #626a64;
+    }
+
+    .day-cell.run {
+      background: rgba(112,224,139,.22);
+      border-color: rgba(112,224,139,.5);
+      color: var(--green);
+    }
+
+    .day-cell.gym {
+      background: rgba(200,255,61,.15);
+      border-color: rgba(200,255,61,.4);
+      color: var(--lime);
+    }
+
+    .day-cell.both {
+      background: linear-gradient(135deg, rgba(200,255,61,.2), rgba(112,224,139,.25));
+      border-color: var(--lime);
+      color: white;
+    }
+
+    .habit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .habit:last-child {
+      border-bottom: 0;
+    }
+
+    .habit-info strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .habit-info span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .check {
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0b0e0c;
+      color: transparent;
+      font-weight: 900;
+    }
+
+    .check.done {
+      background: var(--lime);
+      border-color: var(--lime);
+      color: #090b09;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .history-item:last-child {
+      border-bottom: 0;
+    }
+
+    .history-name {
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .history-date {
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .badge {
+      padding: 5px 8px;
+      border-radius: 8px;
+      background: rgba(200,255,61,.08);
+      color: var(--lime);
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 150px;
+      padding-top: 15px;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 24px;
+      min-height: 2px;
+      border-radius: 5px 5px 2px 2px;
+      background: var(--lime);
+    }
+
+    .bar.run {
+      background: var(--green);
+    }
+
+    .bar-value {
+      font-size: 8px;
+      color: var(--muted);
+    }
+
+    .bar-label {
+      font-size: 8px;
+      color: #69716b;
+    }
+
+    .setting-row {
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .setting-row:last-child {
+      border-bottom: 0;
+    }
+
+    .setting-row label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      background: #0b0e0c;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px;
+      border-radius: 11px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 90px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100;
+      background: var(--text);
+      color: #090b09;
+      padding: 11px 15px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: .25s;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .footer-note {
+      color: #59615b;
+      font-size: 10px;
+      line-height: 1.5;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    @media (min-width: 600px) {
+      .app {
+        padding-top: 32px;
+      }
+
+      .tabs {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: min(600px, 100%);
+        border: 1px solid var(--border);
+        border-bottom: 0;
+        border-radius: 18px 18px 0 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="app">
 
-<div class="app">
-
-<header>
-  <div>
-    <div class="eyebrow">12-week reset</div>
-    <h1>Winter Arc ❄️</h1>
-  </div>
-
-  <button class="btn secondary" onclick="openSettings()">⚙️</button>
-</header>
-
-<!-- HOME -->
-
-<main id="home" class="view active">
-
-<section class="hero">
-  <div class="hero-row">
-
-    <div>
-      <div class="week-label">CURRENT WEEK</div>
-      <div class="week-number" id="week">01</div>
-    </div>
-
-    <div class="phase" id="phase">REBUILD</div>
-
-  </div>
-
-  <div class="progress">
-    <div class="progress-bar" id="progress"></div>
-  </div>
-
-  <div class="muted" id="progressText" style="font-size:12px;margin-top:6px">
-    0% complete
-  </div>
-</section>
-
-<section class="stats">
-
-  <div class="stat">
-    <div class="stat-number" id="gymStat">0/5</div>
-    <div class="stat-label">gym sessions</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-number" id="runStat">0/2</div>
-    <div class="stat-label">runs</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-number" id="sleepStat">0/7</div>
-    <div class="stat-label">sleep wins</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-number" id="morningStat">0/5</div>
-    <div class="stat-label">morning wins</div>
-  </div>
-
-</section>
-
-<section class="section">
-
-<h2>Today's mission</h2>
-
-<div class="card">
-
-  <div class="row">
-
-    <div>
-      <div class="muted" style="font-size:11px">THE RULE</div>
-      <h3 id="todayTitle">Morning gym</h3>
-      <div class="muted" id="todayDescription">
-        15-minute walk. No negotiating with the alarm.
+    <header>
+      <div class="brand">
+        <div class="brand-mark">W</div>
+        <div>
+          <h1>WINTER ARC</h1>
+          <div class="subtitle">12 weeks. No excuses.</div>
+        </div>
       </div>
-    </div>
+      <button class="icon-btn" onclick="showSettings()">⚙️</button>
+    </header>
 
-    <button class="btn" onclick="completeGym()">Done</button>
+    <!-- HOME -->
+    <main id="home" class="screen active">
+      <section class="hero">
+        <div class="eyebrow" id="phaseLabel">PHASE 1</div>
+        <div class="hero-title" id="heroTitle">Build the habit.</div>
+        <p class="hero-copy" id="heroCopy">
+          The goal isn't perfection. It's becoming the person who doesn't need motivation to show up.
+        </p>
+        <div class="progress-track">
+          <div class="progress-fill" id="arcProgress"></div>
+        </div>
+        <div class="progress-label">
+          <span id="arcProgressText">Week 1 of 12</span>
+          <span id="arcPercent">0%</span>
+        </div>
+      </section>
 
+      <div class="grid grid-2">
+        <div class="card stat-card">
+          <div class="stat-number accent" id="streakStat">0</div>
+          <div class="stat-label">day streak 🔥</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number" id="scoreStat">0%</div>
+          <div class="stat-label">this week's score</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number" id="gymStat">0/5</div>
+          <div class="stat-label">gym target</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number green" id="runStat">0/2</div>
+          <div class="stat-label">run target</div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h3>This week's target</h3>
+        <span class="phase" id="weekPhase">Week 1</span>
+      </div>
+
+      <div class="card">
+        <div class="grid grid-3">
+          <div>
+            <div class="stat-number" id="weekGym">0</div>
+            <div class="stat-label">gym / 5</div>
+          </div>
+          <div>
+            <div class="stat-number" id="weekRuns">0</div>
+            <div class="stat-label">runs / 2</div>
+          </div>
+          <div>
+            <div class="stat-number" id="weekHabits">0</div>
+            <div class="stat-label">habit wins</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h3>12-week dashboard</h3>
+        <span class="tiny">gym + runs</span>
+      </div>
+
+      <div class="card">
+        <div class="week-list" id="weekList"></div>
+      </div>
+
+      <div class="section-heading">
+        <h3>Mindset</h3>
+      </div>
+
+      <div class="card">
+        <div class="quote" id="weeklyQuote"></div>
+      </div>
+    </main>
+
+    <!-- GYM -->
+    <main id="gym" class="screen">
+      <div class="section-heading">
+        <div>
+          <h2>Gym</h2>
+          <div class="tiny">Log every set. Beat your numbers.</div>
+        </div>
+        <span class="phase" id="gymWeekLabel">W1</span>
+      </div>
+
+      <div class="workout-pills" id="workoutPills"></div>
+
+      <div class="card">
+        <div id="exerciseList"></div>
+        <button class="primary" onclick="finishWorkout()">✓ Finish workout</button>
+      </div>
+
+      <div class="card timer">
+        <div class="eyebrow">REST TIMER</div>
+        <div class="timer-display" id="timerDisplay">01:30</div>
+
+        <div class="timer-buttons">
+          <button class="timer-preset" onclick="setTimer(60)">60s</button>
+          <button class="timer-preset active" onclick="setTimer(90)">90s</button>
+          <button class="timer-preset" onclick="setTimer(120)">120s</button>
+        </div>
+
+        <div style="display:flex;justify-content:center;gap:8px;margin-top:12px;">
+          <button class="secondary" onclick="toggleTimer()" id="timerToggle">Start</button>
+          <button class="secondary" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Progressive overload</h3>
+        <p class="tiny" style="line-height:1.6;margin:0;">
+          Hit the top of the rep range on every set with good form?
+          Increase the weight next time by the smallest sensible amount.
+          Don't sacrifice form just to move a bigger number.
+        </p>
+      </div>
+    </main>
+
+    <!-- RUN -->
+    <main id="run" class="screen">
+      <div class="section-heading">
+        <div>
+          <h2>Running</h2>
+          <div class="tiny">You're not a runner yet. That's fine.</div>
+        </div>
+      </div>
+
+      <div class="run-box" id="runPlan"></div>
+
+      <button class="primary" onclick="logRun()">🏃 Log today's run</button>
+
+      <div class="section-heading">
+        <h3>Recent runs</h3>
+        <span class="tiny">last 14 days</span>
+      </div>
+
+      <div class="card">
+        <div class="calendar" id="runCalendar"></div>
+      </div>
+
+      <div class="card">
+        <h3>Running rules</h3>
+        <p class="tiny" style="line-height:1.7;margin-bottom:0;">
+          Easy means easy. You should be able to speak in short sentences.
+          If a week feels too difficult, repeat it. There is no prize for rushing.
+          Sharp or persistent pain means stop rather than pushing through it.
+        </p>
+      </div>
+    </main>
+
+    <!-- PROGRESS -->
+    <main id="progress" class="screen">
+      <div class="section-heading">
+        <div>
+          <h2>Progress</h2>
+          <div class="tiny">Your receipts.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card stat-card">
+          <div class="stat-number" id="totalGym">0</div>
+          <div class="stat-label">total workouts</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number green" id="totalRuns">0</div>
+          <div class="stat-label">total runs</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number accent" id="currentStreak">0</div>
+          <div class="stat-label">current streak</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-number orange" id="bestStreak">0</div>
+          <div class="stat-label">best streak</div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h3>Gym sessions</h3>
+      </div>
+      <div class="card">
+        <div class="bar-chart" id="gymChart"></div>
+      </div>
+
+      <div class="section-heading">
+        <h3>Runs</h3>
+      </div>
+      <div class="card">
+        <div class="bar-chart" id="runChart"></div>
+      </div>
+
+      <div class="section-heading">
+        <h3>Workout history</h3>
+      </div>
+      <div class="card">
+        <div id="historyList"></div>
+      </div>
+    </main>
+
+    <!-- HABITS -->
+    <main id="habits" class="screen">
+      <div class="section-heading">
+        <div>
+          <h2>Habits</h2>
+          <div class="tiny">The boring stuff that changes everything.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="habit">
+          <div class="habit-info">
+            <strong>Morning routine</strong>
+            <span>Up, water, gym clothes, leave on time.</span>
+          </div>
+          <button class="check" id="habit-morning" onclick="toggleHabit('morning')">✓</button>
+        </div>
+
+        <div class="habit">
+          <div class="habit-info">
+            <strong>Protein target</strong>
+            <span>Prioritise protein at every main meal.</span>
+          </div>
+          <button class="check" id="habit-protein" onclick="toggleHabit('protein')">✓</button>
+        </div>
+
+        <div class="habit">
+          <div class="habit-info">
+            <strong>Fruit & veg</strong>
+            <span>Get some colour onto the plate.</span>
+          </div>
+          <button class="check" id="habit-produce" onclick="toggleHabit('produce')">✓</button>
+        </div>
+
+        <div class="habit">
+          <div class="habit-info">
+            <strong>Hydration</strong>
+            <span>Keep water nearby and drink consistently.</span>
+          </div>
+          <button class="check" id="habit-water" onclick="toggleHabit('water')">✓</button>
+        </div>
+
+        <div class="habit">
+          <div class="habit-info">
+            <strong>Sleep</strong>
+            <span>Aim for roughly 8 hours and protect your bedtime.</span>
+          </div>
+          <button class="check" id="habit-sleep" onclick="toggleHabit('sleep')">✓</button>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h3>Morning routine</h3>
+      </div>
+
+      <div class="card">
+        <div class="habit">
+          <div class="habit-info"><strong>7:15</strong><span>Alarm — get up immediately</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>7:20</strong><span>Bathroom + water</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>7:25</strong><span>Gym clothes on</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>7:30</strong><span>Walk to gym</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>7:45</strong><span>Gym starts</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>8:35–8:40</strong><span>Leave gym</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>8:55</strong><span>Home</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>9:00</strong><span>Shower + get ready</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>9:15</strong><span>Breakfast</span></div>
+        </div>
+        <div class="habit">
+          <div class="habit-info"><strong>9:30</strong><span>Work</span></div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h3>Breakfast ideas</h3>
+      </div>
+
+      <div class="card">
+        <p class="tiny">🥣 Greek yoghurt + berries + banana + oats</p>
+        <p class="tiny">🍳 Eggs + toast + fruit</p>
+        <p class="tiny">🥤 Protein shake + banana + oats + peanut butter</p>
+        <p class="tiny" style="margin-bottom:0;">🥛 Protein yoghurt + cereal + fruit</p>
+      </div>
+
+      <div class="section-heading">
+        <h3>Food philosophy</h3>
+      </div>
+
+      <div class="card">
+        <p class="tiny" style="line-height:1.7;margin:0;">
+          Don't crash diet. Build meals around protein, fruit and vegetables,
+          useful carbohydrates and foods you actually enjoy. Consistency beats
+          a perfect diet that lasts five days.
+        </p>
+      </div>
+
+      <div class="section-heading">
+        <h3>Weekly score</h3>
+      </div>
+
+      <div class="card">
+        <div class="progress-track">
+          <div class="progress-fill" id="habitProgress"></div>
+        </div>
+        <div class="progress-label">
+          <span id="habitProgressText">0 habit wins</span>
+          <span>35 max</span>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        Never miss twice. One bad day is noise. Two becomes a pattern.
+      </div>
+    </main>
+
+    <!-- SETTINGS -->
+    <main id="settings" class="screen">
+      <div class="section-heading">
+        <div>
+          <h2>Settings</h2>
+          <div class="tiny">Make the app fit your arc.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="setting-row">
+          <label>Winter Arc start date</label>
+          <input type="date" id="startDateInput" onchange="changeStartDate(this.value)">
+        </div>
+
+        <div class="setting-row">
+          <label>Data</label>
+          <button class="secondary" onclick="exportData()">Export my data</button>
+          <button class="secondary" style="margin-left:6px;" onclick="resetData()">Reset everything</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>12-week structure</h3>
+        <p class="tiny" style="line-height:1.7;margin-bottom:0;">
+          <strong>Weeks 1–4:</strong> Build the habit and learn the movements.<br>
+          <strong>Weeks 5–8:</strong> Progress weights and running volume.<br>
+          <strong>Weeks 9–12:</strong> Push consistency and finish strong.
+        </p>
+      </div>
+    </main>
   </div>
 
-</div>
-
-<div class="notice">
-<strong>Never miss twice.</strong><br>
-A 20-minute session counts on a rough day.
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>This week's mindset</h2>
-
-<div class="card">
-
-<div class="quote" id="quote">
-Just show up.
-</div>
-
-<p id="focus">
-Rebuild the habit before chasing numbers.
-</p>
-
-</div>
-
-</section>
-
-</main>
-
-
-<!-- GYM -->
-
-<main id="gym" class="view">
-
-<section class="section" style="margin-top:0">
-
-<div class="pills" id="workoutPills"></div>
-
-<div id="workout"></div>
-
-</section>
-
-</main>
-
-
-<!-- RUNNING -->
-
-<main id="running" class="view">
-
-<section class="section" style="margin-top:0">
-
-<h2>Running 🏃‍♀️</h2>
-
-<p>
-Two runs per week. Easy pace. Walk breaks are completely fine.
-</p>
-
-<div class="card">
-
-<div class="run-box">
-
-<div class="muted" id="runWeek">WEEK 01</div>
-
-<div class="run-title" id="runTitle">
-30 sec run / 90 sec walk × 6
-</div>
-
-<div class="run-description">
-Add a 5-minute easy walk before and after.
-</div>
-
-</div>
-
-<br>
-
-<button class="btn" onclick="completeRun()">
-Log today's run
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>Running rules</h3>
-
-<div class="check">
-<span>🐢</span>
-<div>
-<strong>Go easy</strong>
-<div class="muted">You should be able to speak in short sentences.</div>
-</div>
-</div>
-
-<div class="check">
-<span>↩️</span>
-<div>
-<strong>Repeat weeks</strong>
-<div class="muted">If a week feels too hard, repeat it.</div>
-</div>
-</div>
-
-<div class="check">
-<span>🧠</span>
-<div>
-<strong>Walk breaks count</strong>
-<div class="muted">They're part of the plan.</div>
-</div>
-</div>
-
-</div>
-
-</section>
-
-</main>
-
-
-<!-- HABITS -->
-
-<main id="habits" class="view">
-
-<section class="section" style="margin-top:0">
-
-<h2>Daily habits ✓</h2>
-
-<p>
-Small wins. Every day.
-</p>
-
-<div class="card">
-
-<label class="check">
-<input type="checkbox" data-habit="morning" onchange="saveHabit(this)">
-<div>
-<strong>Morning routine</strong>
-<div class="muted">Up → water → clothes → leave.</div>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-habit="protein" onchange="saveHabit(this)">
-<div>
-<strong>Protein at meals</strong>
-<div class="muted">Build meals around protein.</div>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-habit="fruitveg" onchange="saveHabit(this)">
-<div>
-<strong>Fruit + vegetables</strong>
-<div class="muted">Aim for variety.</div>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-habit="water" onchange="saveHabit(this)">
-<div>
-<strong>Hydration</strong>
-<div class="muted">Keep water nearby.</div>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-habit="sleep" onchange="saveHabit(this)">
-<div>
-<strong>Sleep target</strong>
-<div class="muted">Wind down around 10:15. Aim for ~11pm.</div>
-</div>
-</label>
-
-</div>
-
-
-<div class="card">
-
-<h3>Easy gym-day breakfasts</h3>
-
-<p>🥣 Greek yoghurt + berries + banana + oats</p>
-
-<p>🍳 Eggs + toast + fruit</p>
-
-<p>🥤 Protein shake + banana + oats + peanut butter</p>
-
-<p>🥛 Protein yoghurt + cereal + fruit</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>Food philosophy</h3>
-
-<p>
-Mostly nutritious, high-protein food.
-Keep foods you enjoy.
-No crash diet.
-Consistency beats perfection.
-</p>
-
-</div>
-
-</section>
-
-</main>
-
-</div>
-
-
-<!-- NAV -->
-
-<nav class="tabs">
-
-<div class="tabs-inner">
-
-<button class="tab active" onclick="showView('home',this)">
-<span>❄️</span>
-Home
-</button>
-
-<button class="tab" onclick="showView('gym',this)">
-<span>🏋️</span>
-Gym
-</button>
-
-<button class="tab" onclick="showView('running',this)">
-<span>🏃</span>
-Run
-</button>
-
-<button class="tab" onclick="showView('habits',this)">
-<span>✓</span>
-Habits
-</button>
-
-</div>
-
-</nav>
-
-
-<div class="toast" id="toast"></div>
-
-
-<!-- SETTINGS -->
-
-<div class="modal" id="settings">
-
-<div class="sheet">
-
-<button class="btn secondary"
-style="float:right"
-onclick="closeSettings()">×</button>
-
-<h2>Settings</h2>
-
-<p>
-Your progress is saved locally on this device.
-</p>
-
-<label>Winter Arc start date</label>
-
-<input
-class="date"
-type="date"
-id="startDate">
-
-<br><br>
-
-<button class="btn" onclick="saveSettings()">
-Save
-</button>
-
-<button
-class="btn secondary"
-onclick="resetEverything()">
-Reset progress
-</button>
-
-</div>
-
-</div>
-
+  <nav class="tabs">
+    <button class="tab active" data-screen="home" onclick="navigate('home')">
+      <span class="tab-icon">⌂</span>Home
+    </button>
+    <button class="tab" data-screen="gym" onclick="navigate('gym')">
+      <span class="tab-icon">🏋️</span>Gym
+    </button>
+    <button class="tab" data-screen="run" onclick="navigate('run')">
+      <span class="tab-icon">🏃</span>Run
+    </button>
+    <button class="tab" data-screen="progress" onclick="navigate('progress')">
+      <span class="tab-icon">📈</span>Progress
+    </button>
+    <button class="tab" data-screen="habits" onclick="navigate('habits')">
+      <span class="tab-icon">✓</span>Habits
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
 
 <script>
+const STORAGE_KEY = "winterArc_v3";
 
-/* =========================
-   DATA
-========================= */
-
-const WEEKS = [
-
-["REBUILD","Just show up.","Rebuild the habit before chasing numbers."],
-
-["REBUILD","Make mornings automatic.","Four gym sessions is a win. Protect bedtime."],
-
-["BUILD","Start progressing.","Beat a rep or a small amount of weight."],
-
-["BUILD","Own the routine.","Five gym days is available if recovery is good."],
-
-["BUILD","Build the engine.","Running intervals get longer."],
-
-["BUILD","Quality over chaos.","Keep most sets 2–3 reps from failure."],
-
-["LEVEL UP","You are becoming consistent.","Track lifts. Track runs."],
-
-["LEVEL UP","Easy cardio counts.","Do not turn every session into punishment."],
-
-["LEVEL UP","Strength + stamina.","Push progressive overload while running stays easy."],
-
-["LEVEL UP","No negotiating.","The 7:15 alarm is already decided."],
-
-["FINISH","Finish strong.","Aim for a comfortable 20-minute run."],
-
-["FINISH","Become the person.","The transformation is the routine."]
-];
-
-
-const RUNS = [
-
-"30 sec run / 90 sec walk × 6",
-
-"30 sec run / 90 sec walk × 6",
-
-"1 min run / 90 sec walk × 6",
-
-"1 min run / 90 sec walk × 6",
-
-"2 min run / 1 min walk × 6",
-
-"2 min run / 1 min walk × 6",
-
-"5 min run / 2 min walk × 3",
-
-"5 min run / 2 min walk × 3",
-
-"10 min run / 2 min walk / 10 min run",
-
-"10 min run / 2 min walk / 10 min run",
-
-"20 min continuous easy run",
-
-"20–30 min continuous easy run"
-];
-
-
-const WORKOUTS = {
-
-push1: {
-name:"Push A",
-subtitle:"Chest • shoulders • triceps",
-items:[
-["Chest press","18 kg","3 × 8–12"],
-["Incline DB press","6 kg each","3 × 8–12"],
-["Shoulder press","9 kg","3 × 8–12"],
-["Chest fly","25 kg","2–3 × 10–15"],
-["Dips","23 kg assistance","2–3 × 8–12"],
-["Lateral raises","14 kg","3 × 12–15"],
-["Tricep pulldown","11 kg","3 × 10–15"]
-]
-},
-
-pull1: {
-name:"Pull A",
-subtitle:"Back • rear delts • biceps",
-items:[
-["Lat pulldown","25 kg","3 × 8–12"],
-["Seated row — wide","23 kg","3 × 8–12"],
-["Seated row — close","23 kg","3 × 8–12"],
-["Bicep machine","9 kg","2–3 × 10–15"],
-["Hammer curl","5 kg each","3 × 10–12"],
-["Bicep curl","6 kg each","2 × 10–15"]
-]
-},
-
-legs: {
-name:"Legs",
-subtitle:"Quads • glutes • hamstrings",
-items:[
-["Leg press","45 kg","3 × 8–12"],
-["Hip thrust","15 kg","3 × 8–12"],
-["Leg curl","27 kg","3 × 10–12"],
-["Leg extension","52 kg","3 × 10–15"],
-["Hip abductor","32 kg","3 × 12–15"],
-["Hip adductor","32 kg","2 × 12–15"],
-["Calf raises","Start light","3 × 12–15"]
-]
-},
-
-push2: {
-name:"Push B",
-subtitle:"Different stimulus, same goal",
-items:[
-["Incline DB press","6 kg each","3 × 8–12"],
-["Chest press","18 kg","3 × 10–12"],
-["Shoulder press","9 kg","3 × 8–12"],
-["Lateral raises","14 kg","3 × 12–15"],
-["Chest fly","25 kg","2 × 12–15"],
-["Tricep pulldown","11 kg","3 × 10–15"]
-]
-},
-
-pull2: {
-name:"Pull B",
-subtitle:"Back • rear delts • biceps",
-items:[
-["Lat pulldown","25 kg","3 × 8–12"],
-["Seated row","23 kg","3 × 8–12"],
-["Row / pulldown variation","Start light","3 × 10–12"],
-["Rear delt fly","Start light","3 × 12–15"],
-["Hammer curl","5 kg each","3 × 10–12"],
-["Bicep curl","6 kg each","2 × 10–15"]
-]
-}
-
+const workouts = {
+  "Push A": [
+    ["Chest press", "18 kg", "8–12"],
+    ["Incline DB press", "6 kg each", "8–12"],
+    ["Shoulder press", "9 kg", "8–12"],
+    ["Chest fly", "25 kg", "10–15"],
+    ["Dips", "23 kg assistance", "8–12"],
+    ["Lateral raises", "14 kg", "12–15"],
+    ["Tricep pulldown", "11 kg", "10–15"]
+  ],
+  "Pull A": [
+    ["Lat pulldown", "25 kg", "8–12"],
+    ["Seated row — wide", "23 kg", "8–12"],
+    ["Seated row — close", "23 kg", "8–12"],
+    ["Bicep machine", "9 kg", "10–15"],
+    ["Hammer curl", "5 kg each", "10–12"],
+    ["Bicep curl", "6 kg each", "10–15"]
+  ],
+  "Legs": [
+    ["Leg press", "45 kg", "8–12"],
+    ["Hip thrust", "15 kg", "8–12"],
+    ["Leg curl", "27 kg", "10–12"],
+    ["Leg extension", "52 kg", "10–15"],
+    ["Hip abductor", "32 kg", "12–15"],
+    ["Hip adductor", "32 kg", "12–15"],
+    ["Calf raises", "Starting weight", "12–15"]
+  ],
+  "Push B": [
+    ["Incline DB press", "6 kg each", "8–12"],
+    ["Chest press", "18 kg", "10–12"],
+    ["Shoulder press", "9 kg", "8–12"],
+    ["Lateral raises", "14 kg", "12–15"],
+    ["Chest fly", "25 kg", "12–15"],
+    ["Tricep pulldown", "11 kg", "10–15"]
+  ],
+  "Pull B": [
+    ["Lat pulldown", "25 kg", "8–12"],
+    ["Seated row", "23 kg", "8–12"],
+    ["Row / pulldown variation", "Start light", "10–12"],
+    ["Rear delt fly", "Start light", "12–15"],
+    ["Hammer curl", "5 kg each", "10–12"],
+    ["Bicep curl", "6 kg each", "10–15"]
+  ]
 };
 
+const runPlans = [
+  "30 sec run / 90 sec walk × 6",
+  "30 sec run / 90 sec walk × 6",
+  "1 min run / 90 sec walk × 6",
+  "1 min run / 90 sec walk × 6",
+  "2 min run / 1 min walk × 6",
+  "2 min run / 1 min walk × 6",
+  "5 min run / 2 min walk × 3",
+  "5 min run / 2 min walk × 3",
+  "10 min run / 2 min walk / 10 min run",
+  "10 min run / 2 min walk / 10 min run",
+  "20 min continuous easy run",
+  "20–30 min continuous easy run"
+];
 
-/* =========================
-   STATE
-========================= */
+const quotes = [
+  "Start before you feel ready.",
+  "You don't need motivation. You need a routine.",
+  "The workout you do consistently beats the perfect workout you skip.",
+  "Build the identity first. The results follow.",
+  "Make showing up boring.",
+  "Small wins are still wins.",
+  "Your future self is watching.",
+  "Discipline gets easier when the decision is already made.",
+  "You are halfway. Keep going.",
+  "Don't negotiate with the alarm.",
+  "Finish what you started.",
+  "Leave the 12 weeks knowing you kept your promise."
+];
 
-let state =
-JSON.parse(localStorage.getItem("winterArc") || "{}");
+let state = loadState();
 
-state.start =
-state.start ||
-new Date().toISOString().slice(0,10);
+let currentWorkout = "Push A";
+let timerSeconds = 90;
+let timerRunning = false;
+let timerInterval = null;
 
-state.days = state.days || {};
-state.habits = state.habits || {};
+function defaultState() {
+  return {
+    startDate: todayISO(),
+    workouts: [],
+    runs: [],
+    habits: {},
+    workoutSets: {}
+  };
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return defaultState();
+
+    const parsed = JSON.parse(saved);
+
+    return {
+      ...defaultState(),
+      ...parsed,
+      workouts: parsed.workouts || [],
+      runs: parsed.runs || [],
+      habits: parsed.habits || {},
+      workoutSets: parsed.workoutSets || {}
+    };
+  } catch {
+    return defaultState();
+  }
+}
 
 function save() {
-
-localStorage.setItem(
-"winterArc",
-JSON.stringify(state)
-);
-
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-
-/* =========================
-   WEEK
-========================= */
-
-function currentWeek() {
-
-const start =
-new Date(state.start + "T00:00:00");
-
-const today =
-new Date();
-
-const difference =
-Math.floor(
-(
-new Date(
-today.getFullYear(),
-today.getMonth(),
-today.getDate()
-) - start
-) / 86400000
-);
-
-return Math.max(
-1,
-Math.min(
-12,
-Math.floor(difference / 7) + 1
-)
-);
-
+function todayISO() {
+  const d = new Date();
+  return d.toISOString().slice(0,10);
 }
 
+function dateObj(date) {
+  return new Date(date + "T12:00:00");
+}
 
-/* =========================
-   HOME
-========================= */
+function daysBetween(a, b) {
+  const ms = 86400000;
+  return Math.floor((dateObj(b) - dateObj(a)) / ms);
+}
+
+function getWeek() {
+  const diff = daysBetween(state.startDate, todayISO());
+
+  if (diff < 0) return 1;
+  return Math.min(12, Math.floor(diff / 7) + 1);
+}
+
+function weekRange(week) {
+  const start = dateObj(state.startDate);
+  start.setDate(start.getDate() + ((week - 1) * 7));
+
+  const end = new Date(start);
+  end.setDate(end.getDate() + 6);
+
+  return {
+    start: start.toISOString().slice(0,10),
+    end: end.toISOString().slice(0,10)
+  };
+}
+
+function inRange(date, start, end) {
+  return date >= start && date <= end;
+}
+
+function gymCountForWeek(week) {
+  const range = weekRange(week);
+  return state.workouts.filter(w => inRange(w.date, range.start, range.end)).length;
+}
+
+function runCountForWeek(week) {
+  const range = weekRange(week);
+  return state.runs.filter(r => inRange(r.date, range.start, range.end)).length;
+}
+
+function habitCountForWeek(week) {
+  const range = weekRange(week);
+  let total = 0;
+
+  Object.entries(state.habits).forEach(([date, habits]) => {
+    if (!inRange(date, range.start, range.end)) return;
+
+    Object.values(habits).forEach(value => {
+      if (value) total++;
+    });
+  });
+
+  return total;
+}
+
+function activeDay(date) {
+  const workout = state.workouts.some(w => w.date === date);
+  const run = state.runs.some(r => r.date === date);
+  const habits = state.habits[date];
+
+  const habitDone = habits && Object.values(habits).some(Boolean);
+
+  return workout || run || habitDone;
+}
+
+function currentStreakValue() {
+  let date = todayISO();
+  let streak = 0;
+
+  while (activeDay(date)) {
+    streak++;
+    const d = dateObj(date);
+    d.setDate(d.getDate() - 1);
+    date = d.toISOString().slice(0,10);
+  }
+
+  return streak;
+}
+
+function bestStreakValue() {
+  const allDates = new Set();
+
+  state.workouts.forEach(x => allDates.add(x.date));
+  state.runs.forEach(x => allDates.add(x.date));
+
+  Object.entries(state.habits).forEach(([date, habits]) => {
+    if (Object.values(habits).some(Boolean)) allDates.add(date);
+  });
+
+  const dates = [...allDates].sort();
+
+  if (!dates.length) return 0;
+
+  let best = 1;
+  let current = 1;
+
+  for (let i = 1; i < dates.length; i++) {
+    if (daysBetween(dates[i - 1], dates[i]) === 1) {
+      current++;
+      best = Math.max(best, current);
+    } else {
+      current = 1;
+    }
+  }
+
+  return best;
+}
+
+function weeklyScore(week) {
+  const gym = Math.min(gymCountForWeek(week), 5);
+  const runs = Math.min(runCountForWeek(week), 2);
+  const habits = Math.min(habitCountForWeek(week), 35);
+
+  const gymScore = gym / 5;
+  const runScore = runs / 2;
+  const habitScore = habits / 35;
+
+  return Math.round(((gymScore + runScore + habitScore) / 3) * 100);
+}
+
+function navigate(screen) {
+  document.querySelectorAll(".screen").forEach(x => x.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+
+  const target = document.getElementById(screen);
+  if (target) target.classList.add("active");
+
+  const tab = document.querySelector(`.tab[data-screen="${screen}"]`);
+  if (tab) tab.classList.add("active");
+
+  if (screen === "home") renderHome();
+  if (screen === "gym") renderGym();
+  if (screen === "run") renderRun();
+  if (screen === "progress") renderProgress();
+  if (screen === "habits") renderHabits();
+}
+
+function showSettings() {
+  document.querySelectorAll(".screen").forEach(x => x.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+
+  document.getElementById("settings").classList.add("active");
+
+  document.getElementById("startDateInput").value = state.startDate;
+}
 
 function renderHome() {
+  const week = getWeek();
+  const score = weeklyScore(week);
+  const arcPercent = Math.round((week / 12) * 100);
 
-const week =
-currentWeek();
+  let phase = "PHASE 1";
+  let title = "Build the habit.";
+  let copy = "Learn the routine. Keep the weights sensible. Get comfortable showing up.";
 
-const info =
-WEEKS[week - 1];
+  if (week >= 5 && week <= 8) {
+    phase = "PHASE 2";
+    title = "Build the engine.";
+    copy = "The habit exists now. Start pushing your numbers and your running.";
+  }
 
-document.getElementById("week")
-.textContent =
-String(week).padStart(2,"0");
+  if (week >= 9) {
+    phase = "PHASE 3";
+    title = "Finish strong.";
+    copy = "Consistency is the goal. Finish these 12 weeks knowing you kept your promise.";
+  }
 
-document.getElementById("phase")
-.textContent =
-info[0];
+  document.getElementById("phaseLabel").textContent = phase;
+  document.getElementById("heroTitle").textContent = title;
+  document.getElementById("heroCopy").textContent = copy;
+  document.getElementById("arcProgress").style.width = arcPercent + "%";
+  document.getElementById("arcProgressText").textContent = `Week ${week} of 12`;
+  document.getElementById("arcPercent").textContent = arcPercent + "%";
 
-document.getElementById("quote")
-.textContent =
-info[1];
+  document.getElementById("streakStat").textContent = currentStreakValue();
+  document.getElementById("scoreStat").textContent = score + "%";
+  document.getElementById("gymStat").textContent = `${Math.min(gymCountForWeek(week),5)}/5`;
+  document.getElementById("runStat").textContent = `${Math.min(runCountForWeek(week),2)}/2`;
 
-document.getElementById("focus")
-.textContent =
-info[2];
+  document.getElementById("weekPhase").textContent = `Week ${week}`;
+  document.getElementById("weekGym").textContent = gymCountForWeek(week);
+  document.getElementById("weekRuns").textContent = runCountForWeek(week);
+  document.getElementById("weekHabits").textContent = habitCountForWeek(week);
 
-const percent =
-Math.round(((week - 1) / 12) * 100);
+  document.getElementById("weeklyQuote").textContent = quotes[week - 1];
 
-document.getElementById("progress")
-.style.width =
-percent + "%";
-
-document.getElementById("progressText")
-.textContent =
-percent + "% of your 12-week arc complete";
-
-
-const dates =
-Object.values(state.days);
-
-const gym =
-dates.filter(x => x.gym).length;
-
-const runs =
-dates.filter(x => x.run).length;
-
-const habits =
-Object.values(state.habits);
-
-const sleep =
-habits.filter(x => x.sleep).length;
-
-const mornings =
-habits.filter(x => x.morning).length;
-
-document.getElementById("gymStat")
-.textContent =
-(gym % 100) + "/5";
-
-document.getElementById("runStat")
-.textContent =
-(runs % 100) + "/2";
-
-document.getElementById("sleepStat")
-.textContent =
-(sleep % 100) + "/7";
-
-document.getElementById("morningStat")
-.textContent =
-(mornings % 100) + "/5";
-
-
-const key =
-todayKey();
-
-const today =
-state.days[key] || {};
-
-if(today.gym) {
-
-document.getElementById("todayTitle")
-.textContent =
-"Gym complete ✓";
-
-document.getElementById("todayDescription")
-.textContent =
-"Nice. Recover, eat well and get your sleep.";
-
-} else {
-
-document.getElementById("todayTitle")
-.textContent =
-"Morning gym";
-
-document.getElementById("todayDescription")
-.textContent =
-"15-minute walk. No negotiating with the alarm.";
-
+  renderWeekList();
 }
 
+function renderWeekList() {
+  const current = getWeek();
+  const list = document.getElementById("weekList");
+
+  list.innerHTML = "";
+
+  for (let week = 1; week <= 12; week++) {
+    const gym = Math.min(gymCountForWeek(week), 5);
+    const runs = Math.min(runCountForWeek(week), 2);
+
+    const completion = Math.round(((gym / 5 + runs / 2) / 2) * 100);
+
+    const row = document.createElement("div");
+    row.className = "week-row" + (week === current ? " current" : "");
+
+    row.innerHTML = `
+      <div class="week-num">W${week}</div>
+      <div>
+        <div class="week-mini">
+          <span style="width:${completion}%"></span>
+        </div>
+        <div class="tiny" style="margin-top:4px;">${gym}/5 gym · ${runs}/2 runs</div>
+      </div>
+      <div class="week-percent">${completion}%</div>
+    `;
+
+    list.appendChild(row);
+  }
 }
 
+function renderGym() {
+  const week = getWeek();
+  document.getElementById("gymWeekLabel").textContent = `W${week}`;
 
-/* =========================
-   DATE
-========================= */
+  const pills = document.getElementById("workoutPills");
+  pills.innerHTML = "";
 
-function todayKey() {
+  Object.keys(workouts).forEach(name => {
+    const button = document.createElement("button");
+    button.className = "pill" + (currentWorkout === name ? " active" : "");
+    button.textContent = name;
+    button.onclick = () => {
+      currentWorkout = name;
+      renderGym();
+    };
+    pills.appendChild(button);
+  });
 
-return new Date()
-.toISOString()
-.slice(0,10);
+  const list = document.getElementById("exerciseList");
+  list.innerHTML = "";
 
+  workouts[currentWorkout].forEach((exercise, index) => {
+    const key = `${currentWorkout}-${index}`;
+
+    const previous =
+      state.workoutSets[key] ||
+      ["", "", ""];
+
+    const item = document.createElement("div");
+    item.className = "exercise";
+
+    item.innerHTML = `
+      <div class="exercise-top">
+        <div class="exercise-name">${exercise[0]}</div>
+        <div class="exercise-start">${exercise[1]} · ${exercise[2]}</div>
+      </div>
+
+      <div class="sets">
+        ${[0,1,2].map(set => `
+          <div>
+            <input
+              class="set-input workout-set"
+              data-key="${key}"
+              data-set="${set}"
+              inputmode="text"
+              placeholder="reps"
+              value="${previous[set] || ""}"
+            >
+            <span class="set-label">SET ${set + 1}</span>
+          </div>
+        `).join("")}
+      </div>
+    `;
+
+    list.appendChild(item);
+  });
 }
 
+function finishWorkout() {
+  const today = todayISO();
 
-/* =========================
-   GYM LOG
-========================= */
+  const existing = state.workouts.find(
+    w => w.date === today && w.workout === currentWorkout
+  );
 
-function completeGym() {
+  const sets = {};
 
-const key =
-todayKey();
+  document.querySelectorAll(".workout-set").forEach(input => {
+    const key = input.dataset.key;
+    const set = Number(input.dataset.set);
 
-state.days[key] =
-state.days[key] || {};
+    if (!sets[key]) sets[key] = ["", "", ""];
+    sets[key][set] = input.value;
+  });
 
-state.days[key].gym =
-!state.days[key].gym;
+  Object.entries(sets).forEach(([key, values]) => {
+    state.workoutSets[key] = values;
+  });
 
-save();
+  if (!existing) {
+    state.workouts.unshift({
+      id: Date.now(),
+      date: today,
+      workout: currentWorkout,
+      week: getWeek(),
+      sets
+    });
+  } else {
+    existing.sets = sets;
+  }
 
-renderHome();
-
-toast(
-state.days[key].gym
-? "Gym logged ✓"
-: "Gym unmarked"
-);
-
+  save();
+  renderAll();
+  toast(`${currentWorkout} logged 💪`);
 }
-
-
-/* =========================
-   RUN
-========================= */
 
 function renderRun() {
+  const week = getWeek();
+  const plan = runPlans[week - 1];
 
-const week =
-currentWeek();
+  document.getElementById("runPlan").innerHTML = `
+    <div class="eyebrow">WEEK ${week} RUN PLAN</div>
+    <div class="run-workout">${plan}</div>
+    <div class="run-detail">
+      Do this twice this week if possible. Keep the effort easy enough
+      that you aren't fighting for breath.
+    </div>
+  `;
 
-document.getElementById("runWeek")
-.textContent =
-"WEEK " +
-String(week).padStart(2,"0");
-
-document.getElementById("runTitle")
-.textContent =
-RUNS[week - 1];
-
+  renderRunCalendar();
 }
 
+function renderRunCalendar() {
+  const calendar = document.getElementById("runCalendar");
+  calendar.innerHTML = "";
 
-function completeRun() {
+  const end = dateObj(todayISO());
 
-const key =
-todayKey();
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(end);
+    d.setDate(d.getDate() - i);
 
-state.days[key] =
-state.days[key] || {};
+    const iso = d.toISOString().slice(0,10);
+    const run = state.runs.some(r => r.date === iso);
+    const gym = state.workouts.some(w => w.date === iso);
 
-state.days[key].run =
-true;
+    let cls = "day-cell";
 
-save();
+    if (run && gym) cls += " both";
+    else if (run) cls += " run";
+    else if (gym) cls += " gym";
 
-renderHome();
+    const cell = document.createElement("div");
+    cell.className = cls;
+    cell.title = iso;
+    cell.textContent = d.getDate();
 
-toast("Run logged ✓");
-
+    calendar.appendChild(cell);
+  }
 }
 
+function logRun() {
+  const today = todayISO();
 
-/* =========================
-   WORKOUTS
-========================= */
+  if (!state.runs.some(r => r.date === today)) {
+    state.runs.unshift({
+      id: Date.now(),
+      date: today,
+      week: getWeek(),
+      plan: runPlans[getWeek() - 1]
+    });
 
-const workoutKeys =
-["push1","pull1","legs","push2","pull2"];
-
-
-function renderWorkoutTabs() {
-
-const container =
-document.getElementById("workoutPills");
-
-container.innerHTML = "";
-
-workoutKeys.forEach(
-(key,index) => {
-
-const button =
-document.createElement("button");
-
-button.className =
-"pill" +
-(index === 0 ? " active" : "");
-
-button.textContent =
-WORKOUTS[key].name;
-
-button.onclick =
-() => {
-
-document
-.querySelectorAll(".pill")
-.forEach(x =>
-x.classList.remove("active")
-);
-
-button.classList.add("active");
-
-renderWorkout(key);
-
-};
-
-container.appendChild(button);
-
-});
-
-renderWorkout("push1");
-
+    save();
+    renderAll();
+    toast("Run logged 🏃");
+  } else {
+    toast("Today's run is already logged.");
+  }
 }
 
+function renderProgress() {
+  document.getElementById("totalGym").textContent = state.workouts.length;
+  document.getElementById("totalRuns").textContent = state.runs.length;
+  document.getElementById("currentStreak").textContent = currentStreakValue();
+  document.getElementById("bestStreak").textContent = bestStreakValue();
 
-function renderWorkout(key) {
-
-const workout =
-WORKOUTS[key];
-
-let html = `
-
-<div class="card">
-
-<div class="row">
-
-<div>
-<h2>${workout.name}</h2>
-<div class="muted">
-${workout.subtitle}
-</div>
-</div>
-
-<button class="btn"
-onclick="completeGym()">
-Log
-</button>
-
-</div>
-
-<div class="notice"
-style="margin-top:13px">
-
-<strong>Progression:</strong>
-When you reach the top of the rep range
-on every set with good form,
-increase the weight by the smallest
-sensible amount next time.
-
-</div>
-`;
-
-workout.items.forEach(
-exercise => {
-
-html += `
-
-<div class="exercise">
-
-<div class="exercise-top">
-
-<div>
-
-<strong>
-${exercise[0]}
-</strong>
-
-<div class="sets">
-${exercise[2]}
-</div>
-
-</div>
-
-<div class="weight">
-${exercise[1]}
-</div>
-
-</div>
-
-<div class="log">
-
-<input
-placeholder="Set 1"
-inputmode="numeric">
-
-<input
-placeholder="Set 2"
-inputmode="numeric">
-
-<input
-placeholder="Set 3"
-inputmode="numeric">
-
-</div>
-
-</div>
-
-`;
-
-});
-
-html += `</div>`;
-
-document.getElementById("workout")
-.innerHTML = html;
-
+  renderChart("gymChart", false);
+  renderChart("runChart", true);
+  renderHistory();
 }
 
+function renderChart(id, isRun) {
+  const chart = document.getElementById(id);
+  chart.innerHTML = "";
 
-/* =========================
-   HABITS
-========================= */
+  const values = [];
 
-function saveHabit(input) {
+  for (let week = 1; week <= 12; week++) {
+    values.push(isRun ? runCountForWeek(week) : gymCountForWeek(week));
+  }
 
-const key =
-todayKey();
+  const max = isRun ? 2 : 5;
 
-state.habits[key] =
-state.habits[key] || {};
+  values.forEach((value, index) => {
+    const wrap = document.createElement("div");
+    wrap.className = "bar-wrap";
 
-state.habits[key][input.dataset.habit] =
-input.checked;
+    const bar = document.createElement("div");
+    bar.className = "bar" + (isRun ? " run" : "");
+    bar.style.height = Math.max(2, (value / max) * 100) + "%";
 
-save();
+    const val = document.createElement("div");
+    val.className = "bar-value";
+    val.textContent = value;
 
-renderHome();
+    const label = document.createElement("div");
+    label.className = "bar-label";
+    label.textContent = "W" + (index + 1);
 
-toast(
-input.checked
-? "Habit logged ✓"
-: "Habit unmarked"
-);
+    wrap.appendChild(val);
+    wrap.appendChild(bar);
+    wrap.appendChild(label);
 
+    chart.appendChild(wrap);
+  });
 }
 
+function renderHistory() {
+  const list = document.getElementById("historyList");
 
-function loadHabits() {
+  if (!state.workouts.length) {
+    list.innerHTML = `<div class="empty">Your completed workouts will appear here.</div>`;
+    return;
+  }
 
-const today =
-state.habits[todayKey()] || {};
+  list.innerHTML = "";
 
-document
-.querySelectorAll("[data-habit]")
-.forEach(input => {
+  state.workouts.slice(0, 12).forEach(workout => {
+    const item = document.createElement("div");
+    item.className = "history-item";
 
-input.checked =
-!!today[input.dataset.habit];
+    const date = dateObj(workout.date).toLocaleDateString(
+      undefined,
+      { weekday:"short", day:"numeric", month:"short" }
+    );
 
-});
+    item.innerHTML = `
+      <div>
+        <div class="history-name">${workout.workout}</div>
+        <div class="history-date">${date} · Week ${workout.week}</div>
+      </div>
+      <span class="badge">DONE</span>
+    `;
 
+    list.appendChild(item);
+  });
 }
 
+function renderHabits() {
+  const habits = state.habits[todayISO()] || {};
 
-/* =========================
-   NAV
-========================= */
+  ["morning","protein","produce","water","sleep"].forEach(key => {
+    const button = document.getElementById(`habit-${key}`);
 
-function showView(id,button) {
+    if (habits[key]) button.classList.add("done");
+    else button.classList.remove("done");
+  });
 
-document
-.querySelectorAll(".view")
-.forEach(view =>
-view.classList.remove("active")
-);
+  const week = getWeek();
+  const count = habitCountForWeek(week);
 
-document
-.getElementById(id)
-.classList.add("active");
+  document.getElementById("habitProgress").style.width =
+    Math.min(100, (count / 35) * 100) + "%";
 
-document
-.querySelectorAll(".tab")
-.forEach(tab =>
-tab.classList.remove("active")
-);
-
-button.classList.add("active");
-
+  document.getElementById("habitProgressText").textContent =
+    `${count} habit wins`;
 }
 
+function toggleHabit(key) {
+  const today = todayISO();
 
-/* =========================
-   SETTINGS
-========================= */
+  if (!state.habits[today]) {
+    state.habits[today] = {};
+  }
 
-function openSettings() {
+  state.habits[today][key] = !state.habits[today][key];
 
-document
-.getElementById("settings")
-.classList.add("show");
-
-document
-.getElementById("startDate")
-.value =
-state.start;
-
+  save();
+  renderAll();
 }
 
+function setTimer(seconds) {
+  stopTimer();
 
-function closeSettings() {
+  timerSeconds = seconds;
 
-document
-.getElementById("settings")
-.classList.remove("show");
+  document.querySelectorAll(".timer-preset").forEach(button => {
+    button.classList.remove("active");
+  });
 
+  const match = [...document.querySelectorAll(".timer-preset")]
+    .find(button => button.textContent === `${seconds}s`);
+
+  if (match) match.classList.add("active");
+
+  updateTimerDisplay();
 }
 
+function updateTimerDisplay() {
+  const minutes = Math.floor(timerSeconds / 60)
+    .toString()
+    .padStart(2, "0");
 
-function saveSettings() {
+  const seconds = (timerSeconds % 60)
+    .toString()
+    .padStart(2, "0");
 
-const value =
-document
-.getElementById("startDate")
-.value;
-
-if(value) {
-
-state.start =
-value;
-
-save();
-
-renderAll();
-
+  document.getElementById("timerDisplay").textContent =
+    `${minutes}:${seconds}`;
 }
 
-closeSettings();
+function toggleTimer() {
+  if (timerRunning) {
+    stopTimer();
+    return;
+  }
 
-toast("Saved ✓");
+  timerRunning = true;
+  document.getElementById("timerToggle").textContent = "Pause";
 
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+
+    updateTimerDisplay();
+
+    if (timerSeconds <= 0) {
+      stopTimer();
+      navigator.vibrate?.([150, 100, 150]);
+      toast("Rest over. Next set.");
+    }
+  }, 1000);
 }
 
+function stopTimer() {
+  timerRunning = false;
 
-function resetEverything() {
+  clearInterval(timerInterval);
+  timerInterval = null;
 
-if(
-confirm(
-"Reset all Winter Arc progress?"
-)
-) {
-
-localStorage.removeItem(
-"winterArc"
-);
-
-location.reload();
-
+  const button = document.getElementById("timerToggle");
+  if (button) button.textContent = "Start";
 }
 
+function resetTimer() {
+  stopTimer();
+  timerSeconds = 90;
+  updateTimerDisplay();
 }
 
+function changeStartDate(value) {
+  if (!value) return;
 
-/* =========================
-   TOAST
-========================= */
+  state.startDate = value;
+  save();
+  renderAll();
+
+  toast("Start date updated.");
+}
+
+function exportData() {
+  const data = JSON.stringify(state, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "winter-arc-data.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function resetData() {
+  const confirmed = confirm(
+    "This will delete all Winter Arc progress from this phone. Continue?"
+  );
+
+  if (!confirmed) return;
+
+  state = defaultState();
+  save();
+  renderAll();
+  toast("Progress reset.");
+}
 
 function toast(message) {
+  const element = document.getElementById("toast");
 
-const element =
-document.getElementById("toast");
+  element.textContent = message;
+  element.classList.add("show");
 
-element.textContent =
-message;
-
-element.classList.add("show");
-
-setTimeout(
-() => element.classList.remove("show"),
-1600
-);
-
+  setTimeout(() => {
+    element.classList.remove("show");
+  }, 2200);
 }
-
-
-/* =========================
-   START
-========================= */
 
 function renderAll() {
+  renderHome();
+  renderGym();
+  renderRun();
+  renderProgress();
+  renderHabits();
 
-renderHome();
-
-renderRun();
-
-renderWorkoutTabs();
-
-loadHabits();
-
+  const input = document.getElementById("startDateInput");
+  if (input) input.value = state.startDate;
 }
 
+updateTimerDisplay();
 renderAll();
 
-
-/* =========================
-   OFFLINE APP
-========================= */
-
-if("serviceWorker" in navigator) {
-
-navigator.serviceWorker
-.register("sw.js")
-.catch(() => {});
-
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
 }
-
 </script>
 
 </body>
