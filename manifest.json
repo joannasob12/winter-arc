@@ -1,10 +1,19 @@
 {
-  "name": "Winter Arc — Joanna",
+  "name": "Joanna's Winter Arc",
   "short_name": "Winter Arc",
+  "description": "A 12-week gym, running, sleep and habit tracker.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0b0c0f",
-  "theme_color": "#0b0c0f",
-  "description": "Joanna's 12-week gym, running, sleep and habit tracker.",
-  "icons": []
+  "orientation": "portrait",
+  "background_color": "#080a09",
+  "theme_color": "#0b0d0c",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
