@@ -1,1577 +1,1561 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0c0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Winter Arc">
+
+<title>Winter Arc ❄️</title>
+
+<style>
+:root {
+  --bg:#0b0c0f;
+  --card:#15171c;
+  --card2:#1c1f26;
+  --text:#f4f5f7;
+  --muted:#969ba6;
+  --accent:#d7ff55;
+  --line:#292c34;
+  --danger:#ff6969;
+}
+
+* { box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  margin:0;
+  background:linear-gradient(180deg,#0b0c0f,#111318);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+.app {
+  max-width:720px;
+  margin:auto;
+  padding:18px 16px 105px;
+}
+
+/* HEADER */
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.eyebrow {
+  color:var(--accent);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+h1 {
+  margin:5px 0 0;
+  font-size:32px;
+  letter-spacing:-.05em;
+}
+
+h2 {
+  font-size:21px;
+  margin:0 0 12px;
+}
+
+h3 {
+  margin:0 0 5px;
+  font-size:16px;
+}
+
+p {
+  color:var(--muted);
+  line-height:1.5;
+}
+
+/* BUTTONS */
+
+.btn {
+  border:0;
+  border-radius:13px;
+  padding:11px 14px;
+  font-weight:800;
+  background:var(--accent);
+  color:#111;
+}
+
+.btn.secondary {
+  background:var(--card2);
+  color:var(--text);
+  border:1px solid var(--line);
+}
+
+/* HERO */
+
+.hero {
+  background:
+    radial-gradient(circle at 100% 0%,rgba(215,255,85,.14),transparent 35%),
+    linear-gradient(135deg,#1d221a,#15171c);
+  border:1px solid #30372a;
+  border-radius:25px;
+  padding:20px;
+}
+
+.hero-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.week-label {
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em;
+}
+
+.week-number {
+  font-size:50px;
+  font-weight:900;
+  letter-spacing:-.07em;
+}
+
+.phase {
+  background:var(--accent);
+  color:#111;
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+}
+
+.progress {
+  height:9px;
+  background:#292d29;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:15px;
+}
+
+.progress-bar {
+  height:100%;
+  width:0;
+  background:var(--accent);
+  transition:.3s;
+}
+
+/* STATS */
+
+.stats {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:12px 0;
+}
+
+.stat {
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+}
+
+.stat-number {
+  font-size:27px;
+  font-weight:900;
+}
+
+.stat-label {
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* CARDS */
+
+.section {
+  margin-top:25px;
+}
+
+.card {
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+  margin:10px 0;
+}
+
+.row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.muted {
+  color:var(--muted);
+}
+
+.quote {
+  font-size:20px;
+  font-weight:800;
+  line-height:1.35;
+}
+
+.notice {
+  background:#171d15;
+  border:1px solid #303a29;
+  color:#c8d0c1;
+  border-radius:16px;
+  padding:13px;
+  font-size:13px;
+  line-height:1.45;
+}
+
+/* TABS */
+
+.tabs {
+  position:fixed;
+  z-index:10;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(11,12,15,.93);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);
+}
+
+.tabs-inner {
+  max-width:720px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+
+.tab {
+  border:0;
+  background:none;
+  color:#777c86;
+  padding:7px 3px;
+  border-radius:12px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.tab span {
+  display:block;
+  font-size:19px;
+  margin-bottom:2px;
+}
+
+.tab.active {
+  color:var(--accent);
+  background:#1a1d21;
+}
+
+/* VIEWS */
+
+.view {
+  display:none;
+}
+
+.view.active {
+  display:block;
+}
+
+/* WORKOUT */
+
+.pills {
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding-bottom:5px;
+}
+
+.pill {
+  flex:0 0 auto;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--muted);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+}
+
+.pill.active {
+  background:var(--accent);
+  color:#111;
+  border-color:var(--accent);
+  font-weight:800;
+}
+
+.exercise {
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.exercise:last-child {
+  border-bottom:0;
+}
+
+.exercise-top {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.weight {
+  color:var(--accent);
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.sets {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.log {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:9px;
+}
+
+.log input {
+  width:100%;
+  padding:9px;
+  border-radius:9px;
+  border:1px solid var(--line);
+  background:#0f1115;
+  color:white;
+}
+
+/* CHECKLIST */
+
+.check {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.check:last-child {
+  border:0;
+}
+
+.check input {
+  appearance:none;
+  width:22px;
+  height:22px;
+  border:2px solid #555b66;
+  border-radius:7px;
+}
+
+.check input:checked {
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.check input:checked::after {
+  content:"✓";
+  color:#111;
+  display:block;
+  text-align:center;
+  font-weight:900;
+}
+
+/* RUN */
+
+.run-box {
+  background:#101216;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:15px;
+}
+
+.run-title {
+  font-weight:900;
+  font-size:17px;
+}
+
+.run-description {
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
+}
+
+/* TOAST */
+
+.toast {
+  position:fixed;
+  z-index:30;
+  bottom:90px;
+  left:50%;
+  transform:translateX(-50%) translateY(10px);
+  background:#f4f5f7;
+  color:#111;
+  border-radius:999px;
+  padding:10px 16px;
+  font-size:13px;
+  font-weight:800;
+  opacity:0;
+  transition:.25s;
+}
+
+.toast.show {
+  opacity:1;
+  transform:translateX(-50%);
+}
+
+/* SETTINGS */
+
+.modal {
+  position:fixed;
+  z-index:20;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:flex-end;
+}
+
+.modal.show {
+  display:flex;
+}
+
+.sheet {
+  width:100%;
+  max-width:720px;
+  margin:auto;
+  background:var(--card);
+  border-radius:25px 25px 0 0;
+  padding:20px;
+}
+
+.date {
+  width:100%;
+  background:#101216;
+  border:1px solid var(--line);
+  color:white;
+  border-radius:10px;
+  padding:10px;
+}
+
+@media(min-width:700px) {
+  .tabs {
+    width:690px;
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    border:1px solid var(--line);
+    border-radius:20px;
+    bottom:15px;
+  }
+}
+</style>
 </head>
+
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;</p>
-<p class="p1">&lt;meta name="theme-color" content="#0b0c0f"&gt;</p>
-<p class="p1">&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</p>
-<p class="p1">&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</p>
-<p class="p1">&lt;meta name="apple-mobile-web-app-title" content="Winter Arc"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;title&gt;Winter Arc ❄️&lt;/title&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1">:root {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--bg:#0b0c0f;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--card:#15171c;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--card2:#1c1f26;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--text:#f4f5f7;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--muted:#969ba6;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--accent:#d7ff55;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--line:#292c34;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>--danger:#ff6969;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">* { box-sizing:border-box; }</p>
-<p class="p2"><br></p>
-<p class="p1">html { scroll-behavior:smooth; }</p>
-<p class="p2"><br></p>
-<p class="p1">body {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:linear-gradient(180deg,#0b0c0f,#111318);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">button,input {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font:inherit;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">button {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>cursor:pointer;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.app {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>max-width:720px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:auto;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:18px 16px 105px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* HEADER */</p>
-<p class="p2"><br></p>
-<p class="p1">header {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>justify-content:space-between;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>align-items:center;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom:20px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.eyebrow {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:11px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:800;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing:.16em;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>text-transform:uppercase;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">h1 {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:5px 0 0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:32px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing:-.05em;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">h2 {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:21px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:0 0 12px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">h3 {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:0 0 5px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:16px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">p {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>line-height:1.5;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* BUTTONS */</p>
-<p class="p2"><br></p>
-<p class="p1">.btn {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:13px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:11px 14px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:800;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:#111;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.btn.secondary {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--card2);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--line);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* HERO */</p>
-<p class="p2"><br></p>
-<p class="p1">.hero {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:</p>
-<p class="p1"><span class="Apple-converted-space">    </span>radial-gradient(circle at 100% 0%,rgba(215,255,85,.14),transparent 35%),</p>
-<p class="p1"><span class="Apple-converted-space">    </span>linear-gradient(135deg,#1d221a,#15171c);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid #30372a;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:25px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:20px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.hero-row {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>justify-content:space-between;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>align-items:flex-end;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.week-label {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:11px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:700;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing:.12em;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.week-number {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:50px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:900;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing:-.07em;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.phase {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:#111;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:6px 9px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:999px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:10px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:900;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.progress {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>height:9px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#292d29;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:99px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>overflow:hidden;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin-top:15px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.progress-bar {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>height:100%;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>width:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>transition:.3s;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* STATS */</p>
-<p class="p2"><br></p>
-<p class="p1">.stats {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:grid;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>grid-template-columns:1fr 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>gap:10px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:12px 0;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.stat {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--card);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--line);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:18px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:15px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.stat-number {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:27px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:900;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.stat-label {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:12px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* CARDS */</p>
-<p class="p2"><br></p>
-<p class="p1">.section {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin-top:25px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.card {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--card);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--line);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:20px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:16px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:10px 0;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.row {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>justify-content:space-between;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>align-items:center;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>gap:12px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.muted {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--muted);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.quote {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:20px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:800;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>line-height:1.35;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.notice {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#171d15;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid #303a29;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:#c8d0c1;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:16px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:13px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:13px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>line-height:1.45;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* TABS */</p>
-<p class="p2"><br></p>
-<p class="p1">.tabs {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>position:fixed;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>z-index:10;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>bottom:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>left:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>right:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:9px 12px calc(9px + env(safe-area-inset-bottom));</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:rgba(11,12,15,.93);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>backdrop-filter:blur(18px);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-top:1px solid var(--line);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.tabs-inner {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>max-width:720px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:auto;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:grid;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>grid-template-columns:repeat(4,1fr);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.tab {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:none;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:#777c86;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:7px 3px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:12px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:11px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:700;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.tab span {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:block;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:19px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom:2px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.tab.active {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#1a1d21;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* VIEWS */</p>
-<p class="p2"><br></p>
-<p class="p1">.view {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:none;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.view.active {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:block;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* WORKOUT */</p>
-<p class="p2"><br></p>
-<p class="p1">.pills {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>gap:7px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>overflow:auto;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding-bottom:5px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.pill {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>flex:0 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--line);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--card);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:999px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:8px 12px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:12px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.pill.active {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:#111;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-color:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:800;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.exercise {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:14px 0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-bottom:1px solid var(--line);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.exercise:last-child {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-bottom:0;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.exercise-top {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>justify-content:space-between;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>gap:10px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.weight {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:900;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>white-space:nowrap;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.sets {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:12px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin-top:4px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.log {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:grid;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>grid-template-columns:repeat(3,1fr);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>gap:7px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin-top:9px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.log input {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:9px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:9px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--line);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#0f1115;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:white;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* CHECKLIST */</p>
-<p class="p2"><br></p>
-<p class="p1">.check {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>align-items:center;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>gap:11px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:12px 0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-bottom:1px solid var(--line);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.check:last-child {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:0;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.check input {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>appearance:none;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>width:22px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>height:22px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:2px solid #555b66;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:7px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.check input:checked {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-color:var(--accent);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.check input:checked::after {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>content:"✓";</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:#111;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:block;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>text-align:center;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:900;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* RUN */</p>
-<p class="p2"><br></p>
-<p class="p1">.run-box {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#101216;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--line);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:16px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:15px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.run-title {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:900;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:17px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.run-description {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:13px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin-top:5px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* TOAST */</p>
-<p class="p2"><br></p>
-<p class="p1">.toast {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>position:fixed;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>z-index:30;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>bottom:90px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>left:50%;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>transform:translateX(-50%) translateY(10px);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#f4f5f7;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:#111;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:999px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:10px 16px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-size:13px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>font-weight:800;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>opacity:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>transition:.25s;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.toast.show {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>opacity:1;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>transform:translateX(-50%);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">/* SETTINGS */</p>
-<p class="p2"><br></p>
-<p class="p1">.modal {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>position:fixed;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>z-index:20;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>inset:0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:rgba(0,0,0,.7);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:none;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>align-items:flex-end;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.modal.show {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>display:flex;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.sheet {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>max-width:720px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>margin:auto;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:var(--card);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:25px 25px 0 0;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:20px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.date {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>background:#101216;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--line);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>color:white;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>border-radius:10px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>padding:10px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">@media(min-width:700px) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.tabs {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width:690px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>left:50%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>right:auto;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transform:translateX(-50%);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border:1px solid var(--line);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>bottom:15px;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p1">}</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="app"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="eyebrow"&gt;12-week reset&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Winter Arc ❄️&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="btn secondary" onclick="openSettings()"&gt;⚙️&lt;/button&gt;</p>
-<p class="p1">&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- HOME --&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;main id="home" class="view active"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;section class="hero"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="hero-row"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="week-label"&gt;CURRENT WEEK&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="week-number" id="week"&gt;01&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="phase" id="phase"&gt;REBUILD&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="progress"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="progress-bar" id="progress"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="muted" id="progressText" style="font-size:12px;margin-top:6px"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>0% complete</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;section class="stats"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-number" id="gymStat"&gt;0/5&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;gym sessions&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-number" id="runStat"&gt;0/2&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;runs&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-number" id="sleepStat"&gt;0/7&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;sleep wins&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-number" id="morningStat"&gt;0/5&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;morning wins&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;section class="section"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h2&gt;Today's mission&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="row"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="muted" style="font-size:11px"&gt;THE RULE&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3 id="todayTitle"&gt;Morning gym&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="muted" id="todayDescription"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>15-minute walk. No negotiating with the alarm.</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="btn" onclick="completeGym()"&gt;Done&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="notice"&gt;</p>
-<p class="p1">&lt;strong&gt;Never miss twice.&lt;/strong&gt;&lt;br&gt;</p>
-<p class="p1">A 20-minute session counts on a rough day.</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;section class="section"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h2&gt;This week's mindset&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="quote" id="quote"&gt;</p>
-<p class="p1">Just show up.</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p id="focus"&gt;</p>
-<p class="p1">Rebuild the habit before chasing numbers.</p>
-<p class="p1">&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- GYM --&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;main id="gym" class="view"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;section class="section" style="margin-top:0"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="pills" id="workoutPills"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div id="workout"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- RUNNING --&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;main id="running" class="view"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;section class="section" style="margin-top:0"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h2&gt;Running 🏃‍♀️&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;</p>
-<p class="p1">Two runs per week. Easy pace. Walk breaks are completely fine.</p>
-<p class="p1">&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="run-box"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="muted" id="runWeek"&gt;WEEK 01&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="run-title" id="runTitle"&gt;</p>
-<p class="p1">30 sec run / 90 sec walk × 6</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="run-description"&gt;</p>
-<p class="p1">Add a 5-minute easy walk before and after.</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;br&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="btn" onclick="completeRun()"&gt;</p>
-<p class="p1">Log today's run</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h3&gt;Running rules&lt;/h3&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="check"&gt;</p>
-<p class="p1">&lt;span&gt;🐢&lt;/span&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Go easy&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;You should be able to speak in short sentences.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="check"&gt;</p>
-<p class="p1">&lt;span&gt;↩️&lt;/span&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Repeat weeks&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;If a week feels too hard, repeat it.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="check"&gt;</p>
-<p class="p1">&lt;span&gt;🧠&lt;/span&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Walk breaks count&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;They're part of the plan.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- HABITS --&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;main id="habits" class="view"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;section class="section" style="margin-top:0"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h2&gt;Daily habits ✓&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;</p>
-<p class="p1">Small wins. Every day.</p>
-<p class="p1">&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;label class="check"&gt;</p>
-<p class="p1">&lt;input type="checkbox" data-habit="morning" onchange="saveHabit(this)"&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Morning routine&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;Up → water → clothes → leave.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;label class="check"&gt;</p>
-<p class="p1">&lt;input type="checkbox" data-habit="protein" onchange="saveHabit(this)"&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Protein at meals&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;Build meals around protein.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;label class="check"&gt;</p>
-<p class="p1">&lt;input type="checkbox" data-habit="fruitveg" onchange="saveHabit(this)"&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Fruit + vegetables&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;Aim for variety.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;label class="check"&gt;</p>
-<p class="p1">&lt;input type="checkbox" data-habit="water" onchange="saveHabit(this)"&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Hydration&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;Keep water nearby.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;label class="check"&gt;</p>
-<p class="p1">&lt;input type="checkbox" data-habit="sleep" onchange="saveHabit(this)"&gt;</p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;strong&gt;Sleep target&lt;/strong&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;Wind down around 10:15. Aim for ~11pm.&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h3&gt;Easy gym-day breakfasts&lt;/h3&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;🥣 Greek yoghurt + berries + banana + oats&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;🍳 Eggs + toast + fruit&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;🥤 Protein shake + banana + oats + peanut butter&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;🥛 Protein yoghurt + cereal + fruit&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h3&gt;Food philosophy&lt;/h3&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;</p>
-<p class="p1">Mostly nutritious, high-protein food.</p>
-<p class="p1">Keep foods you enjoy.</p>
-<p class="p1">No crash diet.</p>
-<p class="p1">Consistency beats perfection.</p>
-<p class="p1">&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- NAV --&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;nav class="tabs"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="tabs-inner"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="tab active" onclick="showView('home',this)"&gt;</p>
-<p class="p1">&lt;span&gt;❄️&lt;/span&gt;</p>
-<p class="p1">Home</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="tab" onclick="showView('gym',this)"&gt;</p>
-<p class="p1">&lt;span&gt;🏋️&lt;/span&gt;</p>
-<p class="p1">Gym</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="tab" onclick="showView('running',this)"&gt;</p>
-<p class="p1">&lt;span&gt;🏃&lt;/span&gt;</p>
-<p class="p1">Run</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="tab" onclick="showView('habits',this)"&gt;</p>
-<p class="p1">&lt;span&gt;✓&lt;/span&gt;</p>
-<p class="p1">Habits</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/nav&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="toast" id="toast"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- SETTINGS --&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="modal" id="settings"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="sheet"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="btn secondary"</p>
-<p class="p1">style="float:right"</p>
-<p class="p1">onclick="closeSettings()"&gt;×&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h2&gt;Settings&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;p&gt;</p>
-<p class="p1">Your progress is saved locally on this device.</p>
-<p class="p1">&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;label&gt;Winter Arc start date&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;input</p>
-<p class="p1">class="date"</p>
-<p class="p1">type="date"</p>
-<p class="p1">id="startDate"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;br&gt;&lt;br&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="btn" onclick="saveSettings()"&gt;</p>
-<p class="p1">Save</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button</p>
-<p class="p1">class="btn secondary"</p>
-<p class="p1">onclick="resetEverything()"&gt;</p>
-<p class="p1">Reset progress</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>DATA</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">const WEEKS = [</p>
-<p class="p2"><br></p>
-<p class="p1">["REBUILD","Just show up.","Rebuild the habit before chasing numbers."],</p>
-<p class="p2"><br></p>
-<p class="p1">["REBUILD","Make mornings automatic.","Four gym sessions is a win. Protect bedtime."],</p>
-<p class="p2"><br></p>
-<p class="p1">["BUILD","Start progressing.","Beat a rep or a small amount of weight."],</p>
-<p class="p2"><br></p>
-<p class="p1">["BUILD","Own the routine.","Five gym days is available if recovery is good."],</p>
-<p class="p2"><br></p>
-<p class="p1">["BUILD","Build the engine.","Running intervals get longer."],</p>
-<p class="p2"><br></p>
-<p class="p1">["BUILD","Quality over chaos.","Keep most sets 2–3 reps from failure."],</p>
-<p class="p2"><br></p>
-<p class="p1">["LEVEL UP","You are becoming consistent.","Track lifts. Track runs."],</p>
-<p class="p2"><br></p>
-<p class="p1">["LEVEL UP","Easy cardio counts.","Do not turn every session into punishment."],</p>
-<p class="p2"><br></p>
-<p class="p1">["LEVEL UP","Strength + stamina.","Push progressive overload while running stays easy."],</p>
-<p class="p2"><br></p>
-<p class="p1">["LEVEL UP","No negotiating.","The 7:15 alarm is already decided."],</p>
-<p class="p2"><br></p>
-<p class="p1">["FINISH","Finish strong.","Aim for a comfortable 20-minute run."],</p>
-<p class="p2"><br></p>
-<p class="p1">["FINISH","Become the person.","The transformation is the routine."]</p>
-<p class="p1">];</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">const RUNS = [</p>
-<p class="p2"><br></p>
-<p class="p1">"30 sec run / 90 sec walk × 6",</p>
-<p class="p2"><br></p>
-<p class="p1">"30 sec run / 90 sec walk × 6",</p>
-<p class="p2"><br></p>
-<p class="p1">"1 min run / 90 sec walk × 6",</p>
-<p class="p2"><br></p>
-<p class="p1">"1 min run / 90 sec walk × 6",</p>
-<p class="p2"><br></p>
-<p class="p1">"2 min run / 1 min walk × 6",</p>
-<p class="p2"><br></p>
-<p class="p1">"2 min run / 1 min walk × 6",</p>
-<p class="p2"><br></p>
-<p class="p1">"5 min run / 2 min walk × 3",</p>
-<p class="p2"><br></p>
-<p class="p1">"5 min run / 2 min walk × 3",</p>
-<p class="p2"><br></p>
-<p class="p1">"10 min run / 2 min walk / 10 min run",</p>
-<p class="p2"><br></p>
-<p class="p1">"10 min run / 2 min walk / 10 min run",</p>
-<p class="p2"><br></p>
-<p class="p1">"20 min continuous easy run",</p>
-<p class="p2"><br></p>
-<p class="p1">"20–30 min continuous easy run"</p>
-<p class="p1">];</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">const WORKOUTS = {</p>
-<p class="p2"><br></p>
-<p class="p1">push1: {</p>
-<p class="p1">name:"Push A",</p>
-<p class="p1">subtitle:"Chest • shoulders • triceps",</p>
-<p class="p1">items:[</p>
-<p class="p1">["Chest press","18 kg","3 × 8–12"],</p>
-<p class="p1">["Incline DB press","6 kg each","3 × 8–12"],</p>
-<p class="p1">["Shoulder press","9 kg","3 × 8–12"],</p>
-<p class="p1">["Chest fly","25 kg","2–3 × 10–15"],</p>
-<p class="p1">["Dips","23 kg assistance","2–3 × 8–12"],</p>
-<p class="p1">["Lateral raises","14 kg","3 × 12–15"],</p>
-<p class="p1">["Tricep pulldown","11 kg","3 × 10–15"]</p>
-<p class="p1">]</p>
-<p class="p1">},</p>
-<p class="p2"><br></p>
-<p class="p1">pull1: {</p>
-<p class="p1">name:"Pull A",</p>
-<p class="p1">subtitle:"Back • rear delts • biceps",</p>
-<p class="p1">items:[</p>
-<p class="p1">["Lat pulldown","25 kg","3 × 8–12"],</p>
-<p class="p1">["Seated row — wide","23 kg","3 × 8–12"],</p>
-<p class="p1">["Seated row — close","23 kg","3 × 8–12"],</p>
-<p class="p1">["Bicep machine","9 kg","2–3 × 10–15"],</p>
-<p class="p1">["Hammer curl","5 kg each","3 × 10–12"],</p>
-<p class="p1">["Bicep curl","6 kg each","2 × 10–15"]</p>
-<p class="p1">]</p>
-<p class="p1">},</p>
-<p class="p2"><br></p>
-<p class="p1">legs: {</p>
-<p class="p1">name:"Legs",</p>
-<p class="p1">subtitle:"Quads • glutes • hamstrings",</p>
-<p class="p1">items:[</p>
-<p class="p1">["Leg press","45 kg","3 × 8–12"],</p>
-<p class="p1">["Hip thrust","15 kg","3 × 8–12"],</p>
-<p class="p1">["Leg curl","27 kg","3 × 10–12"],</p>
-<p class="p1">["Leg extension","52 kg","3 × 10–15"],</p>
-<p class="p1">["Hip abductor","32 kg","3 × 12–15"],</p>
-<p class="p1">["Hip adductor","32 kg","2 × 12–15"],</p>
-<p class="p1">["Calf raises","Start light","3 × 12–15"]</p>
-<p class="p1">]</p>
-<p class="p1">},</p>
-<p class="p2"><br></p>
-<p class="p1">push2: {</p>
-<p class="p1">name:"Push B",</p>
-<p class="p1">subtitle:"Different stimulus, same goal",</p>
-<p class="p1">items:[</p>
-<p class="p1">["Incline DB press","6 kg each","3 × 8–12"],</p>
-<p class="p1">["Chest press","18 kg","3 × 10–12"],</p>
-<p class="p1">["Shoulder press","9 kg","3 × 8–12"],</p>
-<p class="p1">["Lateral raises","14 kg","3 × 12–15"],</p>
-<p class="p1">["Chest fly","25 kg","2 × 12–15"],</p>
-<p class="p1">["Tricep pulldown","11 kg","3 × 10–15"]</p>
-<p class="p1">]</p>
-<p class="p1">},</p>
-<p class="p2"><br></p>
-<p class="p1">pull2: {</p>
-<p class="p1">name:"Pull B",</p>
-<p class="p1">subtitle:"Back • rear delts • biceps",</p>
-<p class="p1">items:[</p>
-<p class="p1">["Lat pulldown","25 kg","3 × 8–12"],</p>
-<p class="p1">["Seated row","23 kg","3 × 8–12"],</p>
-<p class="p1">["Row / pulldown variation","Start light","3 × 10–12"],</p>
-<p class="p1">["Rear delt fly","Start light","3 × 12–15"],</p>
-<p class="p1">["Hammer curl","5 kg each","3 × 10–12"],</p>
-<p class="p1">["Bicep curl","6 kg each","2 × 10–15"]</p>
-<p class="p1">]</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">};</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>STATE</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">let state =</p>
-<p class="p1">JSON.parse(localStorage.getItem("winterArc") || "{}");</p>
-<p class="p2"><br></p>
-<p class="p1">state.start =</p>
-<p class="p1">state.start ||</p>
-<p class="p1">new Date().toISOString().slice(0,10);</p>
-<p class="p2"><br></p>
-<p class="p1">state.days = state.days || {};</p>
-<p class="p1">state.habits = state.habits || {};</p>
-<p class="p2"><br></p>
-<p class="p1">function save() {</p>
-<p class="p2"><br></p>
-<p class="p1">localStorage.setItem(</p>
-<p class="p1">"winterArc",</p>
-<p class="p1">JSON.stringify(state)</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>WEEK</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function currentWeek() {</p>
-<p class="p2"><br></p>
-<p class="p1">const start =</p>
-<p class="p1">new Date(state.start + "T00:00:00");</p>
-<p class="p2"><br></p>
-<p class="p1">const today =</p>
-<p class="p1">new Date();</p>
-<p class="p2"><br></p>
-<p class="p1">const difference =</p>
-<p class="p1">Math.floor(</p>
-<p class="p1">(</p>
-<p class="p1">new Date(</p>
-<p class="p1">today.getFullYear(),</p>
-<p class="p1">today.getMonth(),</p>
-<p class="p1">today.getDate()</p>
-<p class="p1">) - start</p>
-<p class="p1">) / 86400000</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">return Math.max(</p>
-<p class="p1">1,</p>
-<p class="p1">Math.min(</p>
-<p class="p1">12,</p>
-<p class="p1">Math.floor(difference / 7) + 1</p>
-<p class="p1">)</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>HOME</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function renderHome() {</p>
-<p class="p2"><br></p>
-<p class="p1">const week =</p>
-<p class="p1">currentWeek();</p>
-<p class="p2"><br></p>
-<p class="p1">const info =</p>
-<p class="p1">WEEKS[week - 1];</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("week")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">String(week).padStart(2,"0");</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("phase")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">info[0];</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("quote")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">info[1];</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("focus")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">info[2];</p>
-<p class="p2"><br></p>
-<p class="p1">const percent =</p>
-<p class="p1">Math.round(((week - 1) / 12) * 100);</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("progress")</p>
-<p class="p1">.style.width =</p>
-<p class="p1">percent + "%";</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("progressText")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">percent + "% of your 12-week arc complete";</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">const dates =</p>
-<p class="p1">Object.values(state.days);</p>
-<p class="p2"><br></p>
-<p class="p1">const gym =</p>
-<p class="p1">dates.filter(x =&gt; x.gym).length;</p>
-<p class="p2"><br></p>
-<p class="p1">const runs =</p>
-<p class="p1">dates.filter(x =&gt; x.run).length;</p>
-<p class="p2"><br></p>
-<p class="p1">const habits =</p>
-<p class="p1">Object.values(state.habits);</p>
-<p class="p2"><br></p>
-<p class="p1">const sleep =</p>
-<p class="p1">habits.filter(x =&gt; x.sleep).length;</p>
-<p class="p2"><br></p>
-<p class="p1">const mornings =</p>
-<p class="p1">habits.filter(x =&gt; x.morning).length;</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("gymStat")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">(gym % 100) + "/5";</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("runStat")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">(runs % 100) + "/2";</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("sleepStat")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">(sleep % 100) + "/7";</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("morningStat")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">(mornings % 100) + "/5";</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">const key =</p>
-<p class="p1">todayKey();</p>
-<p class="p2"><br></p>
-<p class="p1">const today =</p>
-<p class="p1">state.days[key] || {};</p>
-<p class="p2"><br></p>
-<p class="p1">if(today.gym) {</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("todayTitle")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">"Gym complete ✓";</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("todayDescription")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">"Nice. Recover, eat well and get your sleep.";</p>
-<p class="p2"><br></p>
-<p class="p1">} else {</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("todayTitle")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">"Morning gym";</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("todayDescription")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">"15-minute walk. No negotiating with the alarm.";</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>DATE</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function todayKey() {</p>
-<p class="p2"><br></p>
-<p class="p1">return new Date()</p>
-<p class="p1">.toISOString()</p>
-<p class="p1">.slice(0,10);</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>GYM LOG</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function completeGym() {</p>
-<p class="p2"><br></p>
-<p class="p1">const key =</p>
-<p class="p1">todayKey();</p>
-<p class="p2"><br></p>
-<p class="p1">state.days[key] =</p>
-<p class="p1">state.days[key] || {};</p>
-<p class="p2"><br></p>
-<p class="p1">state.days[key].gym =</p>
-<p class="p1">!state.days[key].gym;</p>
-<p class="p2"><br></p>
-<p class="p1">save();</p>
-<p class="p2"><br></p>
-<p class="p1">renderHome();</p>
-<p class="p2"><br></p>
-<p class="p1">toast(</p>
-<p class="p1">state.days[key].gym</p>
-<p class="p1">? "Gym logged ✓"</p>
-<p class="p1">: "Gym unmarked"</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>RUN</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function renderRun() {</p>
-<p class="p2"><br></p>
-<p class="p1">const week =</p>
-<p class="p1">currentWeek();</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("runWeek")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">"WEEK " +</p>
-<p class="p1">String(week).padStart(2,"0");</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("runTitle")</p>
-<p class="p1">.textContent =</p>
-<p class="p1">RUNS[week - 1];</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">function completeRun() {</p>
-<p class="p2"><br></p>
-<p class="p1">const key =</p>
-<p class="p1">todayKey();</p>
-<p class="p2"><br></p>
-<p class="p1">state.days[key] =</p>
-<p class="p1">state.days[key] || {};</p>
-<p class="p2"><br></p>
-<p class="p1">state.days[key].run =</p>
-<p class="p1">true;</p>
-<p class="p2"><br></p>
-<p class="p1">save();</p>
-<p class="p2"><br></p>
-<p class="p1">renderHome();</p>
-<p class="p2"><br></p>
-<p class="p1">toast("Run logged ✓");</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>WORKOUTS</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">const workoutKeys =</p>
-<p class="p1">["push1","pull1","legs","push2","pull2"];</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">function renderWorkoutTabs() {</p>
-<p class="p2"><br></p>
-<p class="p1">const container =</p>
-<p class="p1">document.getElementById("workoutPills");</p>
-<p class="p2"><br></p>
-<p class="p1">container.innerHTML = "";</p>
-<p class="p2"><br></p>
-<p class="p1">workoutKeys.forEach(</p>
-<p class="p1">(key,index) =&gt; {</p>
-<p class="p2"><br></p>
-<p class="p1">const button =</p>
-<p class="p1">document.createElement("button");</p>
-<p class="p2"><br></p>
-<p class="p1">button.className =</p>
-<p class="p1">"pill" +</p>
-<p class="p1">(index === 0 ? " active" : "");</p>
-<p class="p2"><br></p>
-<p class="p1">button.textContent =</p>
-<p class="p1">WORKOUTS[key].name;</p>
-<p class="p2"><br></p>
-<p class="p1">button.onclick =</p>
-<p class="p1">() =&gt; {</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.querySelectorAll(".pill")</p>
-<p class="p1">.forEach(x =&gt;</p>
-<p class="p1">x.classList.remove("active")</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">button.classList.add("active");</p>
-<p class="p2"><br></p>
-<p class="p1">renderWorkout(key);</p>
-<p class="p2"><br></p>
-<p class="p1">};</p>
-<p class="p2"><br></p>
-<p class="p1">container.appendChild(button);</p>
-<p class="p2"><br></p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">renderWorkout("push1");</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">function renderWorkout(key) {</p>
-<p class="p2"><br></p>
-<p class="p1">const workout =</p>
-<p class="p1">WORKOUTS[key];</p>
-<p class="p2"><br></p>
-<p class="p1">let html = `</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="row"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p1">&lt;h2&gt;${workout.name}&lt;/h2&gt;</p>
-<p class="p1">&lt;div class="muted"&gt;</p>
-<p class="p1">${workout.subtitle}</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;button class="btn"</p>
-<p class="p1">onclick="completeGym()"&gt;</p>
-<p class="p1">Log</p>
-<p class="p1">&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="notice"</p>
-<p class="p1">style="margin-top:13px"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;strong&gt;Progression:&lt;/strong&gt;</p>
-<p class="p1">When you reach the top of the rep range</p>
-<p class="p1">on every set with good form,</p>
-<p class="p1">increase the weight by the smallest</p>
-<p class="p1">sensible amount next time.</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">`;</p>
-<p class="p2"><br></p>
-<p class="p1">workout.items.forEach(</p>
-<p class="p1">exercise =&gt; {</p>
-<p class="p2"><br></p>
-<p class="p1">html += `</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="exercise"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="exercise-top"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;strong&gt;</p>
-<p class="p1">${exercise[0]}</p>
-<p class="p1">&lt;/strong&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="sets"&gt;</p>
-<p class="p1">${exercise[2]}</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="weight"&gt;</p>
-<p class="p1">${exercise[1]}</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="log"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;input</p>
-<p class="p1">placeholder="Set 1"</p>
-<p class="p1">inputmode="numeric"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;input</p>
-<p class="p1">placeholder="Set 2"</p>
-<p class="p1">inputmode="numeric"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;input</p>
-<p class="p1">placeholder="Set 3"</p>
-<p class="p1">inputmode="numeric"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">`;</p>
-<p class="p2"><br></p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">html += `&lt;/div&gt;`;</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("workout")</p>
-<p class="p1">.innerHTML = html;</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>HABITS</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function saveHabit(input) {</p>
-<p class="p2"><br></p>
-<p class="p1">const key =</p>
-<p class="p1">todayKey();</p>
-<p class="p2"><br></p>
-<p class="p1">state.habits[key] =</p>
-<p class="p1">state.habits[key] || {};</p>
-<p class="p2"><br></p>
-<p class="p1">state.habits[key][input.dataset.habit] =</p>
-<p class="p1">input.checked;</p>
-<p class="p2"><br></p>
-<p class="p1">save();</p>
-<p class="p2"><br></p>
-<p class="p1">renderHome();</p>
-<p class="p2"><br></p>
-<p class="p1">toast(</p>
-<p class="p1">input.checked</p>
-<p class="p1">? "Habit logged ✓"</p>
-<p class="p1">: "Habit unmarked"</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">function loadHabits() {</p>
-<p class="p2"><br></p>
-<p class="p1">const today =</p>
-<p class="p1">state.habits[todayKey()] || {};</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.querySelectorAll("[data-habit]")</p>
-<p class="p1">.forEach(input =&gt; {</p>
-<p class="p2"><br></p>
-<p class="p1">input.checked =</p>
-<p class="p1">!!today[input.dataset.habit];</p>
-<p class="p2"><br></p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>NAV</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function showView(id,button) {</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.querySelectorAll(".view")</p>
-<p class="p1">.forEach(view =&gt;</p>
-<p class="p1">view.classList.remove("active")</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.getElementById(id)</p>
-<p class="p1">.classList.add("active");</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.querySelectorAll(".tab")</p>
-<p class="p1">.forEach(tab =&gt;</p>
-<p class="p1">tab.classList.remove("active")</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">button.classList.add("active");</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>SETTINGS</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function openSettings() {</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.getElementById("settings")</p>
-<p class="p1">.classList.add("show");</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.getElementById("startDate")</p>
-<p class="p1">.value =</p>
-<p class="p1">state.start;</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">function closeSettings() {</p>
-<p class="p2"><br></p>
-<p class="p1">document</p>
-<p class="p1">.getElementById("settings")</p>
-<p class="p1">.classList.remove("show");</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">function saveSettings() {</p>
-<p class="p2"><br></p>
-<p class="p1">const value =</p>
-<p class="p1">document</p>
-<p class="p1">.getElementById("startDate")</p>
-<p class="p1">.value;</p>
-<p class="p2"><br></p>
-<p class="p1">if(value) {</p>
-<p class="p2"><br></p>
-<p class="p1">state.start =</p>
-<p class="p1">value;</p>
-<p class="p2"><br></p>
-<p class="p1">save();</p>
-<p class="p2"><br></p>
-<p class="p1">renderAll();</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">closeSettings();</p>
-<p class="p2"><br></p>
-<p class="p1">toast("Saved ✓");</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">function resetEverything() {</p>
-<p class="p2"><br></p>
-<p class="p1">if(</p>
-<p class="p1">confirm(</p>
-<p class="p1">"Reset all Winter Arc progress?"</p>
-<p class="p1">)</p>
-<p class="p1">) {</p>
-<p class="p2"><br></p>
-<p class="p1">localStorage.removeItem(</p>
-<p class="p1">"winterArc"</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">location.reload();</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>TOAST</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function toast(message) {</p>
-<p class="p2"><br></p>
-<p class="p1">const element =</p>
-<p class="p1">document.getElementById("toast");</p>
-<p class="p2"><br></p>
-<p class="p1">element.textContent =</p>
-<p class="p1">message;</p>
-<p class="p2"><br></p>
-<p class="p1">element.classList.add("show");</p>
-<p class="p2"><br></p>
-<p class="p1">setTimeout(</p>
-<p class="p1">() =&gt; element.classList.remove("show"),</p>
-<p class="p1">1600</p>
-<p class="p1">);</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>START</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">function renderAll() {</p>
-<p class="p2"><br></p>
-<p class="p1">renderHome();</p>
-<p class="p2"><br></p>
-<p class="p1">renderRun();</p>
-<p class="p2"><br></p>
-<p class="p1">renderWorkoutTabs();</p>
-<p class="p2"><br></p>
-<p class="p1">loadHabits();</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">renderAll();</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1">/* =========================</p>
-<p class="p1"><span class="Apple-converted-space">   </span>OFFLINE APP</p>
-<p class="p1">========================= */</p>
-<p class="p2"><br></p>
-<p class="p1">if("serviceWorker" in navigator) {</p>
-<p class="p2"><br></p>
-<p class="p1">navigator.serviceWorker</p>
-<p class="p1">.register("sw.js")</p>
-<p class="p1">.catch(() =&gt; {});</p>
-<p class="p2"><br></p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<div class="app">
+
+<header>
+  <div>
+    <div class="eyebrow">12-week reset</div>
+    <h1>Winter Arc ❄️</h1>
+  </div>
+
+  <button class="btn secondary" onclick="openSettings()">⚙️</button>
+</header>
+
+<!-- HOME -->
+
+<main id="home" class="view active">
+
+<section class="hero">
+  <div class="hero-row">
+
+    <div>
+      <div class="week-label">CURRENT WEEK</div>
+      <div class="week-number" id="week">01</div>
+    </div>
+
+    <div class="phase" id="phase">REBUILD</div>
+
+  </div>
+
+  <div class="progress">
+    <div class="progress-bar" id="progress"></div>
+  </div>
+
+  <div class="muted" id="progressText" style="font-size:12px;margin-top:6px">
+    0% complete
+  </div>
+</section>
+
+<section class="stats">
+
+  <div class="stat">
+    <div class="stat-number" id="gymStat">0/5</div>
+    <div class="stat-label">gym sessions</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-number" id="runStat">0/2</div>
+    <div class="stat-label">runs</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-number" id="sleepStat">0/7</div>
+    <div class="stat-label">sleep wins</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-number" id="morningStat">0/5</div>
+    <div class="stat-label">morning wins</div>
+  </div>
+
+</section>
+
+<section class="section">
+
+<h2>Today's mission</h2>
+
+<div class="card">
+
+  <div class="row">
+
+    <div>
+      <div class="muted" style="font-size:11px">THE RULE</div>
+      <h3 id="todayTitle">Morning gym</h3>
+      <div class="muted" id="todayDescription">
+        15-minute walk. No negotiating with the alarm.
+      </div>
+    </div>
+
+    <button class="btn" onclick="completeGym()">Done</button>
+
+  </div>
+
+</div>
+
+<div class="notice">
+<strong>Never miss twice.</strong><br>
+A 20-minute session counts on a rough day.
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>This week's mindset</h2>
+
+<div class="card">
+
+<div class="quote" id="quote">
+Just show up.
+</div>
+
+<p id="focus">
+Rebuild the habit before chasing numbers.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- GYM -->
+
+<main id="gym" class="view">
+
+<section class="section" style="margin-top:0">
+
+<div class="pills" id="workoutPills"></div>
+
+<div id="workout"></div>
+
+</section>
+
+</main>
+
+
+<!-- RUNNING -->
+
+<main id="running" class="view">
+
+<section class="section" style="margin-top:0">
+
+<h2>Running 🏃‍♀️</h2>
+
+<p>
+Two runs per week. Easy pace. Walk breaks are completely fine.
+</p>
+
+<div class="card">
+
+<div class="run-box">
+
+<div class="muted" id="runWeek">WEEK 01</div>
+
+<div class="run-title" id="runTitle">
+30 sec run / 90 sec walk × 6
+</div>
+
+<div class="run-description">
+Add a 5-minute easy walk before and after.
+</div>
+
+</div>
+
+<br>
+
+<button class="btn" onclick="completeRun()">
+Log today's run
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Running rules</h3>
+
+<div class="check">
+<span>🐢</span>
+<div>
+<strong>Go easy</strong>
+<div class="muted">You should be able to speak in short sentences.</div>
+</div>
+</div>
+
+<div class="check">
+<span>↩️</span>
+<div>
+<strong>Repeat weeks</strong>
+<div class="muted">If a week feels too hard, repeat it.</div>
+</div>
+</div>
+
+<div class="check">
+<span>🧠</span>
+<div>
+<strong>Walk breaks count</strong>
+<div class="muted">They're part of the plan.</div>
+</div>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- HABITS -->
+
+<main id="habits" class="view">
+
+<section class="section" style="margin-top:0">
+
+<h2>Daily habits ✓</h2>
+
+<p>
+Small wins. Every day.
+</p>
+
+<div class="card">
+
+<label class="check">
+<input type="checkbox" data-habit="morning" onchange="saveHabit(this)">
+<div>
+<strong>Morning routine</strong>
+<div class="muted">Up → water → clothes → leave.</div>
+</div>
+</label>
+
+<label class="check">
+<input type="checkbox" data-habit="protein" onchange="saveHabit(this)">
+<div>
+<strong>Protein at meals</strong>
+<div class="muted">Build meals around protein.</div>
+</div>
+</label>
+
+<label class="check">
+<input type="checkbox" data-habit="fruitveg" onchange="saveHabit(this)">
+<div>
+<strong>Fruit + vegetables</strong>
+<div class="muted">Aim for variety.</div>
+</div>
+</label>
+
+<label class="check">
+<input type="checkbox" data-habit="water" onchange="saveHabit(this)">
+<div>
+<strong>Hydration</strong>
+<div class="muted">Keep water nearby.</div>
+</div>
+</label>
+
+<label class="check">
+<input type="checkbox" data-habit="sleep" onchange="saveHabit(this)">
+<div>
+<strong>Sleep target</strong>
+<div class="muted">Wind down around 10:15. Aim for ~11pm.</div>
+</div>
+</label>
+
+</div>
+
+
+<div class="card">
+
+<h3>Easy gym-day breakfasts</h3>
+
+<p>🥣 Greek yoghurt + berries + banana + oats</p>
+
+<p>🍳 Eggs + toast + fruit</p>
+
+<p>🥤 Protein shake + banana + oats + peanut butter</p>
+
+<p>🥛 Protein yoghurt + cereal + fruit</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Food philosophy</h3>
+
+<p>
+Mostly nutritious, high-protein food.
+Keep foods you enjoy.
+No crash diet.
+Consistency beats perfection.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- NAV -->
+
+<nav class="tabs">
+
+<div class="tabs-inner">
+
+<button class="tab active" onclick="showView('home',this)">
+<span>❄️</span>
+Home
+</button>
+
+<button class="tab" onclick="showView('gym',this)">
+<span>🏋️</span>
+Gym
+</button>
+
+<button class="tab" onclick="showView('running',this)">
+<span>🏃</span>
+Run
+</button>
+
+<button class="tab" onclick="showView('habits',this)">
+<span>✓</span>
+Habits
+</button>
+
+</div>
+
+</nav>
+
+
+<div class="toast" id="toast"></div>
+
+
+<!-- SETTINGS -->
+
+<div class="modal" id="settings">
+
+<div class="sheet">
+
+<button class="btn secondary"
+style="float:right"
+onclick="closeSettings()">×</button>
+
+<h2>Settings</h2>
+
+<p>
+Your progress is saved locally on this device.
+</p>
+
+<label>Winter Arc start date</label>
+
+<input
+class="date"
+type="date"
+id="startDate">
+
+<br><br>
+
+<button class="btn" onclick="saveSettings()">
+Save
+</button>
+
+<button
+class="btn secondary"
+onclick="resetEverything()">
+Reset progress
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const WEEKS = [
+
+["REBUILD","Just show up.","Rebuild the habit before chasing numbers."],
+
+["REBUILD","Make mornings automatic.","Four gym sessions is a win. Protect bedtime."],
+
+["BUILD","Start progressing.","Beat a rep or a small amount of weight."],
+
+["BUILD","Own the routine.","Five gym days is available if recovery is good."],
+
+["BUILD","Build the engine.","Running intervals get longer."],
+
+["BUILD","Quality over chaos.","Keep most sets 2–3 reps from failure."],
+
+["LEVEL UP","You are becoming consistent.","Track lifts. Track runs."],
+
+["LEVEL UP","Easy cardio counts.","Do not turn every session into punishment."],
+
+["LEVEL UP","Strength + stamina.","Push progressive overload while running stays easy."],
+
+["LEVEL UP","No negotiating.","The 7:15 alarm is already decided."],
+
+["FINISH","Finish strong.","Aim for a comfortable 20-minute run."],
+
+["FINISH","Become the person.","The transformation is the routine."]
+];
+
+
+const RUNS = [
+
+"30 sec run / 90 sec walk × 6",
+
+"30 sec run / 90 sec walk × 6",
+
+"1 min run / 90 sec walk × 6",
+
+"1 min run / 90 sec walk × 6",
+
+"2 min run / 1 min walk × 6",
+
+"2 min run / 1 min walk × 6",
+
+"5 min run / 2 min walk × 3",
+
+"5 min run / 2 min walk × 3",
+
+"10 min run / 2 min walk / 10 min run",
+
+"10 min run / 2 min walk / 10 min run",
+
+"20 min continuous easy run",
+
+"20–30 min continuous easy run"
+];
+
+
+const WORKOUTS = {
+
+push1: {
+name:"Push A",
+subtitle:"Chest • shoulders • triceps",
+items:[
+["Chest press","18 kg","3 × 8–12"],
+["Incline DB press","6 kg each","3 × 8–12"],
+["Shoulder press","9 kg","3 × 8–12"],
+["Chest fly","25 kg","2–3 × 10–15"],
+["Dips","23 kg assistance","2–3 × 8–12"],
+["Lateral raises","14 kg","3 × 12–15"],
+["Tricep pulldown","11 kg","3 × 10–15"]
+]
+},
+
+pull1: {
+name:"Pull A",
+subtitle:"Back • rear delts • biceps",
+items:[
+["Lat pulldown","25 kg","3 × 8–12"],
+["Seated row — wide","23 kg","3 × 8–12"],
+["Seated row — close","23 kg","3 × 8–12"],
+["Bicep machine","9 kg","2–3 × 10–15"],
+["Hammer curl","5 kg each","3 × 10–12"],
+["Bicep curl","6 kg each","2 × 10–15"]
+]
+},
+
+legs: {
+name:"Legs",
+subtitle:"Quads • glutes • hamstrings",
+items:[
+["Leg press","45 kg","3 × 8–12"],
+["Hip thrust","15 kg","3 × 8–12"],
+["Leg curl","27 kg","3 × 10–12"],
+["Leg extension","52 kg","3 × 10–15"],
+["Hip abductor","32 kg","3 × 12–15"],
+["Hip adductor","32 kg","2 × 12–15"],
+["Calf raises","Start light","3 × 12–15"]
+]
+},
+
+push2: {
+name:"Push B",
+subtitle:"Different stimulus, same goal",
+items:[
+["Incline DB press","6 kg each","3 × 8–12"],
+["Chest press","18 kg","3 × 10–12"],
+["Shoulder press","9 kg","3 × 8–12"],
+["Lateral raises","14 kg","3 × 12–15"],
+["Chest fly","25 kg","2 × 12–15"],
+["Tricep pulldown","11 kg","3 × 10–15"]
+]
+},
+
+pull2: {
+name:"Pull B",
+subtitle:"Back • rear delts • biceps",
+items:[
+["Lat pulldown","25 kg","3 × 8–12"],
+["Seated row","23 kg","3 × 8–12"],
+["Row / pulldown variation","Start light","3 × 10–12"],
+["Rear delt fly","Start light","3 × 12–15"],
+["Hammer curl","5 kg each","3 × 10–12"],
+["Bicep curl","6 kg each","2 × 10–15"]
+]
+}
+
+};
+
+
+/* =========================
+   STATE
+========================= */
+
+let state =
+JSON.parse(localStorage.getItem("winterArc") || "{}");
+
+state.start =
+state.start ||
+new Date().toISOString().slice(0,10);
+
+state.days = state.days || {};
+state.habits = state.habits || {};
+
+function save() {
+
+localStorage.setItem(
+"winterArc",
+JSON.stringify(state)
+);
+
+}
+
+
+/* =========================
+   WEEK
+========================= */
+
+function currentWeek() {
+
+const start =
+new Date(state.start + "T00:00:00");
+
+const today =
+new Date();
+
+const difference =
+Math.floor(
+(
+new Date(
+today.getFullYear(),
+today.getMonth(),
+today.getDate()
+) - start
+) / 86400000
+);
+
+return Math.max(
+1,
+Math.min(
+12,
+Math.floor(difference / 7) + 1
+)
+);
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHome() {
+
+const week =
+currentWeek();
+
+const info =
+WEEKS[week - 1];
+
+document.getElementById("week")
+.textContent =
+String(week).padStart(2,"0");
+
+document.getElementById("phase")
+.textContent =
+info[0];
+
+document.getElementById("quote")
+.textContent =
+info[1];
+
+document.getElementById("focus")
+.textContent =
+info[2];
+
+const percent =
+Math.round(((week - 1) / 12) * 100);
+
+document.getElementById("progress")
+.style.width =
+percent + "%";
+
+document.getElementById("progressText")
+.textContent =
+percent + "% of your 12-week arc complete";
+
+
+const dates =
+Object.values(state.days);
+
+const gym =
+dates.filter(x => x.gym).length;
+
+const runs =
+dates.filter(x => x.run).length;
+
+const habits =
+Object.values(state.habits);
+
+const sleep =
+habits.filter(x => x.sleep).length;
+
+const mornings =
+habits.filter(x => x.morning).length;
+
+document.getElementById("gymStat")
+.textContent =
+(gym % 100) + "/5";
+
+document.getElementById("runStat")
+.textContent =
+(runs % 100) + "/2";
+
+document.getElementById("sleepStat")
+.textContent =
+(sleep % 100) + "/7";
+
+document.getElementById("morningStat")
+.textContent =
+(mornings % 100) + "/5";
+
+
+const key =
+todayKey();
+
+const today =
+state.days[key] || {};
+
+if(today.gym) {
+
+document.getElementById("todayTitle")
+.textContent =
+"Gym complete ✓";
+
+document.getElementById("todayDescription")
+.textContent =
+"Nice. Recover, eat well and get your sleep.";
+
+} else {
+
+document.getElementById("todayTitle")
+.textContent =
+"Morning gym";
+
+document.getElementById("todayDescription")
+.textContent =
+"15-minute walk. No negotiating with the alarm.";
+
+}
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function todayKey() {
+
+return new Date()
+.toISOString()
+.slice(0,10);
+
+}
+
+
+/* =========================
+   GYM LOG
+========================= */
+
+function completeGym() {
+
+const key =
+todayKey();
+
+state.days[key] =
+state.days[key] || {};
+
+state.days[key].gym =
+!state.days[key].gym;
+
+save();
+
+renderHome();
+
+toast(
+state.days[key].gym
+? "Gym logged ✓"
+: "Gym unmarked"
+);
+
+}
+
+
+/* =========================
+   RUN
+========================= */
+
+function renderRun() {
+
+const week =
+currentWeek();
+
+document.getElementById("runWeek")
+.textContent =
+"WEEK " +
+String(week).padStart(2,"0");
+
+document.getElementById("runTitle")
+.textContent =
+RUNS[week - 1];
+
+}
+
+
+function completeRun() {
+
+const key =
+todayKey();
+
+state.days[key] =
+state.days[key] || {};
+
+state.days[key].run =
+true;
+
+save();
+
+renderHome();
+
+toast("Run logged ✓");
+
+}
+
+
+/* =========================
+   WORKOUTS
+========================= */
+
+const workoutKeys =
+["push1","pull1","legs","push2","pull2"];
+
+
+function renderWorkoutTabs() {
+
+const container =
+document.getElementById("workoutPills");
+
+container.innerHTML = "";
+
+workoutKeys.forEach(
+(key,index) => {
+
+const button =
+document.createElement("button");
+
+button.className =
+"pill" +
+(index === 0 ? " active" : "");
+
+button.textContent =
+WORKOUTS[key].name;
+
+button.onclick =
+() => {
+
+document
+.querySelectorAll(".pill")
+.forEach(x =>
+x.classList.remove("active")
+);
+
+button.classList.add("active");
+
+renderWorkout(key);
+
+};
+
+container.appendChild(button);
+
+});
+
+renderWorkout("push1");
+
+}
+
+
+function renderWorkout(key) {
+
+const workout =
+WORKOUTS[key];
+
+let html = `
+
+<div class="card">
+
+<div class="row">
+
+<div>
+<h2>${workout.name}</h2>
+<div class="muted">
+${workout.subtitle}
+</div>
+</div>
+
+<button class="btn"
+onclick="completeGym()">
+Log
+</button>
+
+</div>
+
+<div class="notice"
+style="margin-top:13px">
+
+<strong>Progression:</strong>
+When you reach the top of the rep range
+on every set with good form,
+increase the weight by the smallest
+sensible amount next time.
+
+</div>
+`;
+
+workout.items.forEach(
+exercise => {
+
+html += `
+
+<div class="exercise">
+
+<div class="exercise-top">
+
+<div>
+
+<strong>
+${exercise[0]}
+</strong>
+
+<div class="sets">
+${exercise[2]}
+</div>
+
+</div>
+
+<div class="weight">
+${exercise[1]}
+</div>
+
+</div>
+
+<div class="log">
+
+<input
+placeholder="Set 1"
+inputmode="numeric">
+
+<input
+placeholder="Set 2"
+inputmode="numeric">
+
+<input
+placeholder="Set 3"
+inputmode="numeric">
+
+</div>
+
+</div>
+
+`;
+
+});
+
+html += `</div>`;
+
+document.getElementById("workout")
+.innerHTML = html;
+
+}
+
+
+/* =========================
+   HABITS
+========================= */
+
+function saveHabit(input) {
+
+const key =
+todayKey();
+
+state.habits[key] =
+state.habits[key] || {};
+
+state.habits[key][input.dataset.habit] =
+input.checked;
+
+save();
+
+renderHome();
+
+toast(
+input.checked
+? "Habit logged ✓"
+: "Habit unmarked"
+);
+
+}
+
+
+function loadHabits() {
+
+const today =
+state.habits[todayKey()] || {};
+
+document
+.querySelectorAll("[data-habit]")
+.forEach(input => {
+
+input.checked =
+!!today[input.dataset.habit];
+
+});
+
+}
+
+
+/* =========================
+   NAV
+========================= */
+
+function showView(id,button) {
+
+document
+.querySelectorAll(".view")
+.forEach(view =>
+view.classList.remove("active")
+);
+
+document
+.getElementById(id)
+.classList.add("active");
+
+document
+.querySelectorAll(".tab")
+.forEach(tab =>
+tab.classList.remove("active")
+);
+
+button.classList.add("active");
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function openSettings() {
+
+document
+.getElementById("settings")
+.classList.add("show");
+
+document
+.getElementById("startDate")
+.value =
+state.start;
+
+}
+
+
+function closeSettings() {
+
+document
+.getElementById("settings")
+.classList.remove("show");
+
+}
+
+
+function saveSettings() {
+
+const value =
+document
+.getElementById("startDate")
+.value;
+
+if(value) {
+
+state.start =
+value;
+
+save();
+
+renderAll();
+
+}
+
+closeSettings();
+
+toast("Saved ✓");
+
+}
+
+
+function resetEverything() {
+
+if(
+confirm(
+"Reset all Winter Arc progress?"
+)
+) {
+
+localStorage.removeItem(
+"winterArc"
+);
+
+location.reload();
+
+}
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function toast(message) {
+
+const element =
+document.getElementById("toast");
+
+element.textContent =
+message;
+
+element.classList.add("show");
+
+setTimeout(
+() => element.classList.remove("show"),
+1600
+);
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+function renderAll() {
+
+renderHome();
+
+renderRun();
+
+renderWorkoutTabs();
+
+loadHabits();
+
+}
+
+renderAll();
+
+
+/* =========================
+   OFFLINE APP
+========================= */
+
+if("serviceWorker" in navigator) {
+
+navigator.serviceWorker
+.register("sw.js")
+.catch(() => {});
+
+}
+
+</script>
+
 </body>
 </html>
