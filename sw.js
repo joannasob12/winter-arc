@@ -1,38 +1,51 @@
-const CACHE_NAME = "winter-arc-v1";
+const CACHE_NAME = "winter-arc-v3";
 
-const FILES = [
+const FILES_TO_CACHE = [
   "./",
   "./index.html",
   "./manifest.json",
-  "./sw.js"
+  "./sw.js",
+  "./icon.svg"
 ];
 
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES))
+      .then(cache => cache.addAll(FILES_TO_CACHE))
       .then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener("activate", event => {
   event.waitUntil(
-    self.clients.claim()
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener("fetch", event => {
-
   event.respondWith(
+    caches.match(event.request).then(cached => {
+      return cached || fetch(event.request).then(response => {
+        if (
+          event.request.method === "GET" &&
+          response &&
+          response.status === 200
+        ) {
+          const copy = response.clone();
 
-    caches.match(event.request)
-      .then(cached => {
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, copy);
+          });
+        }
 
-        return cached ||
-          fetch(event.request);
-
-      })
-
+        return response;
+      });
+    }).catch(() => caches.match("./index.html"))
   );
-
 });
